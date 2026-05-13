@@ -1,0 +1,17 @@
+name: linkedin
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - requests>=2.31.0
+  - pillow>=10.0.0
+  - feedparser>=6.0.10
+  - python-dotenv  # Added for secure API key management
+  - pip:
+    - anthropic>=0.40.0
+    - google-genai>=1.0.0
+    - openai>=1.50.0
+
+

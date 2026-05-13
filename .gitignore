@@ -7,3 +7,5 @@ venv/
 drafts/preview_*
 .env
 *.log
+.env
+gemini_key.txt

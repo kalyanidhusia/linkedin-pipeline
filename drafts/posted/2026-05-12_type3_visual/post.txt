@@ -1,0 +1,10 @@
+I still remember the chaos when I first started installing Python packages. My `base` environment was a tangled mess, and nothing worked!
+
+It felt like I was playing Jenga with my dependencies. One `pip install` would break another project, and I'd spend hours trying to `conda remove` everything and start over. It was frustrating, and honestly, a bit embarrassing when I had to ask for help again.
+
+The simple fix? A dedicated `conda environment` for *every single project*. It's like giving each project its own clean workspace. Your `rnaseq` environment won't mess with your `proteomics_ml` environment. Trust me, future you will thank you for this small habit.
+
+Save this for your next project setup. Card below 👇
+Meanwhile, making dumb machines solve biological problems!
+
+#bioinformatics #python #conda #compbio

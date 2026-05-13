@@ -44,7 +44,7 @@ LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "auto")
 
 LLM_MODELS = {
     "anthropic": "claude-sonnet-4-5",
-    "gemini": "gemini-2.0-flash",
+    "gemini": "gemini-2.5-flash",
     "openai": "gpt-4o-mini",
 }
 

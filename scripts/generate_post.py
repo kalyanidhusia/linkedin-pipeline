@@ -1,10 +1,15 @@
 """
 Pick a post type, build the prompt, call the LLM, save the draft.
-This is what the GitHub Action runs every Sunday.
+
+Output format per post (in drafts/YYYY-MM-DD_typeN/):
+  post.txt   - exact text to paste to LinkedIn
+  card.png   - image to attach (Type 3 only)
+  meta.json  - type, source URLs, hashtags, generation timestamp
 """
 
 import json
 import random
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -23,19 +28,23 @@ def _load(name: str) -> str:
 
 
 def _last_type() -> str | None:
-    """What type did we post last week? (so we can avoid repeating)"""
+    """Inspect drafts/ to see what was last drafted."""
     if not DRAFTS.exists():
         return None
+    dirs = sorted([d for d in DRAFTS.iterdir() if d.is_dir()], reverse=True)
+    if dirs:
+        name = dirs[0].name
+        parts = name.split("_", 1)
+        return parts[1] if len(parts) > 1 else None
     files = sorted(DRAFTS.glob("*.md"), reverse=True)
-    if not files:
-        return None
-    name = files[0].stem  # e.g. 2026-05-04_type2_tip
-    parts = name.split("_", 1)
-    return parts[1] if len(parts) > 1 else None
+    if files:
+        name = files[0].stem
+        parts = name.split("_", 1)
+        return parts[1] if len(parts) > 1 else None
+    return None
 
 
 def pick_type() -> str:
-    """Weighted random pick, optionally avoiding last week's type."""
     types = list(TYPE_WEIGHTS.keys())
     weights = list(TYPE_WEIGHTS.values())
     if AVOID_REPEATS:
@@ -47,7 +56,6 @@ def pick_type() -> str:
 
 
 def _author_block() -> str:
-    """Render the author profile for the system prompt."""
     return (
         f"Author: {AUTHOR['name']}, {AUTHOR['title']} at {AUTHOR['affiliation']}.\n"
         f"Tagline: {AUTHOR['tagline']}\n"
@@ -57,8 +65,7 @@ def _author_block() -> str:
     )
 
 
-def build_type1(sources: dict) -> tuple[str, str]:
-    """Type 1: news/paper update."""
+def build_type1(sources: dict) -> tuple[str, str, list[str]]:
     candidates = (sources["biorxiv"] or [])[:8] + (sources["github"] or [])[:4]
     if not candidates:
         raise RuntimeError("No bioRxiv or GitHub items fetched. Try again later.")
@@ -73,11 +80,11 @@ def build_type1(sources: dict) -> tuple[str, str]:
         voice_examples=voice,
         candidates=candidates_str,
     )
-    return prompt, "type1_update"
+    candidate_links = [c["link"] for c in candidates if c.get("link")]
+    return prompt, "type1_update", candidate_links
 
 
-def build_type2(sources: dict) -> tuple[str, str]:
-    """Type 2: practical tip for students."""
+def build_type2(sources: dict) -> tuple[str, str, list[str]]:
     tips = sources["tips"]
     ideas = sources["idea_bank"]
     if not tips and not ideas:
@@ -91,17 +98,14 @@ def build_type2(sources: dict) -> tuple[str, str]:
         voice_examples=voice,
         topic_pool=pool_str,
     )
-    return prompt, "type2_tip"
+    return prompt, "type2_tip", []
 
 
-def build_type3(sources: dict) -> tuple[str, str]:
-    """Type 3: do/don't visual."""
+def build_type3(sources: dict) -> tuple[str, str, list[str]]:
     pairs = sources["dos_donts"]
     if not pairs:
         raise RuntimeError("Add at least one pair to sources/dos_donts.md")
-    pool_str = "\n".join(
-        f"- {p['dont']} | {p['do']}" for p in pairs
-    )
+    pool_str = "\n".join(f"- {p['dont']} | {p['do']}" for p in pairs)
     voice = _load("voice_examples.md")
     template = _load("type3_visual.md")
     prompt = template.format(
@@ -109,7 +113,7 @@ def build_type3(sources: dict) -> tuple[str, str]:
         voice_examples=voice,
         topic_pool=pool_str,
     )
-    return prompt, "type3_visual"
+    return prompt, "type3_visual", []
 
 
 BUILDERS = {
@@ -119,16 +123,80 @@ BUILDERS = {
 }
 
 
-def parse_visual_output(raw: str) -> dict:
-    """Type 3 output is JSON with caption + dont + do."""
-    # Strip markdown fences if the model added them
-    cleaned = raw.strip()
-    if cleaned.startswith("```"):
-        cleaned = cleaned.split("```")[1]
-        if cleaned.startswith("json"):
-            cleaned = cleaned[4:]
-        cleaned = cleaned.strip()
-    return json.loads(cleaned)
+def _extract_hashtags(text: str) -> tuple[str, list[str]]:
+    """Pull hashtags off the end (last line). Returns (body, hashtag_list)."""
+    lines = text.rstrip().split("\n")
+    if not lines:
+        return text, []
+    last = lines[-1].strip()
+    if last.startswith("#") and all(w.startswith("#") for w in last.split()):
+        return "\n".join(lines[:-1]).rstrip(), last.split()
+    return text, []
+
+
+def _salvage_json(raw: str) -> dict:
+    text = raw.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```\s*$", "", text)
+    text = text.replace("\u201c", '"').replace("\u201d", '"')
+    text = text.replace("\u2018", "'").replace("\u2019", "'")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+
+    def escape_newlines_in_strings(s: str) -> str:
+        out, in_str, escape = [], False, False
+        for ch in s:
+            if escape: out.append(ch); escape = False
+            elif ch == "\\": out.append(ch); escape = True
+            elif ch == '"': out.append(ch); in_str = not in_str
+            elif ch == "\n" and in_str: out.append("\\n")
+            elif ch == "\r" and in_str: out.append("\\r")
+            else: out.append(ch)
+        return "".join(out)
+
+    escaped = escape_newlines_in_strings(text)
+    try:
+        return json.loads(escaped)
+    except json.JSONDecodeError:
+        pass
+
+    fields = {}
+    for key in ("topic", "dont", "do", "caption"):
+        m = re.search(rf'"{key}"\s*:\s*"((?:[^"\\]|\\.)*)"', escaped, flags=re.DOTALL)
+        if m:
+            try:
+                fields[key] = m.group(1).encode().decode("unicode_escape", errors="ignore")
+            except Exception:
+                fields[key] = m.group(1)
+    if "caption" not in fields:
+        m = re.search(r'"caption"\s*:\s*"((?:[^"\\]|\\.)*)$', escaped, flags=re.DOTALL)
+        if m:
+            try:
+                fields["caption"] = m.group(1).encode().decode("unicode_escape", errors="ignore")
+            except Exception:
+                fields["caption"] = m.group(1)
+            fields["_caption_truncated"] = True
+    if fields:
+        return fields
+    raise json.JSONDecodeError("Could not salvage", text, 0)
+
+
+def _write_post(folder: Path, post_text: str, post_type: str, hashtags: list[str],
+                source_links: list[str], extras: dict | None = None) -> None:
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / "post.txt").write_text(post_text.strip() + "\n")
+    meta = {
+        "type": post_type,
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "hashtags": hashtags,
+        "source_links": source_links,
+    }
+    if extras:
+        meta.update(extras)
+    (folder / "meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
 
 def run() -> None:
@@ -140,46 +208,77 @@ def run() -> None:
     sources = gather_all()
 
     print("→ Building prompt...")
-    prompt, type_label = BUILDERS[post_type](sources)
+    prompt, type_label, source_links = BUILDERS[post_type](sources)
 
     print("→ Calling LLM...")
+    json_mode = (post_type == "type3_visual")
     output = llm_client.generate(
         prompt,
-        system="You write LinkedIn posts in the author's voice. Output exactly what they should post, no preamble.",
-        max_tokens=1500,
+        system="You write LinkedIn posts in the author's voice. Output exactly what they should post.",
+        max_tokens=4000,
+        json_mode=json_mode,
     )
 
     today = datetime.now().strftime("%Y-%m-%d")
-    base = DRAFTS / f"{today}_{type_label}"
+    folder = DRAFTS / f"{today}_{type_label}"
 
     if post_type == "type3_visual":
         try:
-            data = parse_visual_output(output)
+            data = _salvage_json(output)
         except Exception as e:
-            print(f"⚠ Could not parse JSON, saving raw: {e}")
-            base.with_suffix(".md").write_text(output)
+            print(f"⚠ JSON salvage failed: {e}")
+            folder.mkdir(parents=True, exist_ok=True)
+            (folder / "raw.txt").write_text(output)
             return
 
-        # Save the post text
-        md = (
-            f"# Type 3: Visual do/don't post\n\n"
-            f"**Topic:** {data.get('topic', '')}\n\n"
-            f"## LinkedIn caption\n\n{data['caption']}\n\n"
-            f"## Card content\n\n"
-            f"- DON'T: {data['dont']}\n"
-            f"- DO: {data['do']}\n\n"
-            f"![card](./{base.name}.png)\n"
-        )
-        base.with_suffix(".md").write_text(md)
+        missing = [k for k in ("dont", "do") if not data.get(k, "").strip()]
+        if missing:
+            print(f"⚠ Missing {missing}. Saving raw.")
+            folder.mkdir(parents=True, exist_ok=True)
+            (folder / "raw.txt").write_text(output)
+            return
 
-        # Render the image
-        img_path = base.with_suffix(".png")
+        caption = data.get("caption", "").strip()
+        truncated = data.get("_caption_truncated", False)
+        if not caption:
+            caption = "[CAPTION MISSING - please write before posting]"
+        elif truncated:
+            caption += "\n\n[CAPTION TRUNCATED - please complete the last sentence]"
+
+        post_body, hashtags = _extract_hashtags(caption)
+        full_post = post_body + ("\n\n" + " ".join(hashtags) if hashtags else "")
+        _write_post(
+            folder=folder,
+            post_text=full_post,
+            post_type=type_label,
+            hashtags=hashtags,
+            source_links=source_links,
+            extras={
+                "topic": data.get("topic", ""),
+                "dont": data["dont"],
+                "do": data["do"],
+                "caption_truncated": truncated,
+            },
+        )
+
+        img_path = folder / "card.png"
         make_image.make_card(data["dont"], data["do"], img_path)
-        print(f"✓ Wrote: {base.with_suffix('.md').name} + {img_path.name}")
+        print(f"✓ Draft ready: {folder}")
+        print(f"  post.txt + card.png written")
+        if truncated:
+            print(f"  ⚠ Caption truncated - check post.txt before posting")
     else:
-        md = f"# {post_type}\n\n## LinkedIn post draft\n\n{output}\n"
-        base.with_suffix(".md").write_text(md)
-        print(f"✓ Wrote: {base.with_suffix('.md').name}")
+        post_body, hashtags = _extract_hashtags(output)
+        full_post = post_body + ("\n\n" + " ".join(hashtags) if hashtags else "")
+        _write_post(
+            folder=folder,
+            post_text=full_post,
+            post_type=type_label,
+            hashtags=hashtags,
+            source_links=source_links,
+        )
+        print(f"✓ Draft ready: {folder}")
+        print(f"  post.txt written")
 
 
 if __name__ == "__main__":

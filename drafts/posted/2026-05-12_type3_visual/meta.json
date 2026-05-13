@@ -1,0 +1,15 @@
+{
+  "type": "type3_visual",
+  "generated_at": "2026-05-12T21:16:42",
+  "hashtags": [
+    "#bioinformatics",
+    "#python",
+    "#conda",
+    "#compbio"
+  ],
+  "source_links": [],
+  "topic": "Conda environments for projects",
+  "dont": "Pip-install into your base environment",
+  "do": "One conda env per project, always",
+  "caption_truncated": false
+}
