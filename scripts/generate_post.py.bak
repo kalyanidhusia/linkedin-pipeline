@@ -28,31 +28,15 @@ def _load(name: str) -> str:
 
 
 def _last_type() -> str | None:
-    """Inspect drafts/ to see what was last drafted. Ignores posted/ and any
-    non-draft folders."""
+    """Inspect drafts/ to see what was last drafted."""
     if not DRAFTS.exists():
         return None
-    # Only consider folders that look like YYYY-MM-DD_typeN
-    candidates = []
-    for d in DRAFTS.iterdir():
-        if not d.is_dir():
-            continue
-        if d.name == "posted":
-            continue
-        parts = d.name.split("_", 1)
-        if len(parts) != 2:
-            continue
-        # Must look like a date (rough check: starts with 4 digits)
-        if not parts[0][:4].isdigit():
-            continue
-        candidates.append(d)
-    dirs = sorted(candidates, reverse=True)
+    dirs = sorted([d for d in DRAFTS.iterdir() if d.is_dir()], reverse=True)
     if dirs:
         name = dirs[0].name
         parts = name.split("_", 1)
         return parts[1] if len(parts) > 1 else None
-    # Legacy flat .md fallback
-    files = sorted(DRAFTS.glob("20*.md"), reverse=True)
+    files = sorted(DRAFTS.glob("*.md"), reverse=True)
     if files:
         name = files[0].stem
         parts = name.split("_", 1)

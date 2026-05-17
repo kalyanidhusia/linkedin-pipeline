@@ -58,6 +58,12 @@ TYPE_WEIGHTS = {
     "type3_visual": 1.0,
 }
 
+#TYPE_WEIGHTS = {
+#    "type1_update": 0,
+#    "type2_tip": 0,
+#    "type3_visual": 1.0,
+#}
+
 # Rolling memory: don't repeat the same type 2 weeks in a row.
 AVOID_REPEATS = True
 
