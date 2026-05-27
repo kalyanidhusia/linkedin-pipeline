@@ -22,7 +22,7 @@ from config import HEADSHOT_FILE
 ROOT = Path(__file__).resolve().parent.parent
 
 # Square dimensions
-CARD_W = 1090
+CARD_W = 1080
 CARD_H = 1080
 
 # Color palette
@@ -217,7 +217,11 @@ def _draw_linkedin_badge(img: Image.Image, x: int, y: int, size: int = 56) -> No
 
 def _paste_headshot(bg: Image.Image, position: str) -> tuple[int, int]:
     """Paste the headshot on the left or right half.
-    Returns the (left, right) bounds of the OTHER half (where text goes)."""
+    Returns the (left, right) bounds of the OTHER half (where text goes).
+
+    The photo is constrained to roughly half the card width so it doesn't
+    overlap the text panel, regardless of the source photo's aspect ratio.
+    """
     from cutout import get_headshot
     try:
         photo = get_headshot()
@@ -225,22 +229,28 @@ def _paste_headshot(bg: Image.Image, position: str) -> tuple[int, int]:
         print(f"⚠ {e}")
         return (60, CARD_W - 60)
 
-    # Target height: 92% of card height
-    target_h = int(CARD_H * 0.92)
-    ratio = target_h / photo.height
-    target_w = int(photo.width * ratio)
-    photo = photo.resize((target_w, target_h), Image.LANCZOS)
+    # Constrain photo to roughly half the card width (with a small overhang)
+    # AND to a sensible height. Use the tighter of the two ratios.
+    max_w = int(CARD_W * 0.75)   # 75% of card width
+    max_h = int(CARD_H * 0.85)   # 85% of card height
+    ratio = min(max_w / photo.width, max_h / photo.height)
+    new_w = int(photo.width * ratio)
+    new_h = int(photo.height * ratio)
+    photo = photo.resize((new_w, new_h), Image.LANCZOS)
+
+    # Vertical placement: bottom-aligned so headshots look grounded
+    py = CARD_H - new_h - 20
 
     if position == "right":
-        px = CARD_W - target_w + 40
+        # Photo on right - text panel on left
+        px = CARD_W - new_w + 20  # tiny overhang off right edge
         text_left = 60
-        text_right = CARD_W // 2 + 20
-    else:
-        px = -40
-        text_left = CARD_W // 2 - 20
+        text_right = CARD_W // 2 + 40  # text panel ends slightly past center
+    else:  # left
+        px = -20  # tiny overhang off left edge
+        text_left = CARD_W // 2 - 40
         text_right = CARD_W - 60
 
-    py = (CARD_H - target_h) // 2 + 20
     bg.paste(photo, (px, py), photo)
     return text_left, text_right
 

@@ -1,29 +1,39 @@
-You are drafting a LinkedIn post for Kalyani Dhusia.
+You are drafting a Type 2 "tip" LinkedIn post for Kalyani Dhusia.
 
 {author}
 
 Voice reference:
 {voice_examples}
 
-Pick ONE topic from this pool and write a 180-260 word LinkedIn post that teaches it as a story:
+Pick ONE topic from this pool and write a 120-200 word post in story form about
+a practical bioinformatics/ML gotcha. Use the format:
+
+  setup → mistake → catch → lesson
 
 Topic pool:
 {topic_pool}
 
-Structure: the "I learned this the hard way" pattern.
+{avoid_list}
 
-1. Hook (1-2 lines): a small painful moment. "I once spent two days debugging a pipeline before realizing..." or "A grad student emailed me last week asking why their script kept failing on the cluster..." — concrete, specific, slightly self-deprecating.
+Pick a topic NOT in the recently-covered list above. If they're all listed,
+pick the one you can most freshly reframe.
 
-2. Set up the mistake: 2-3 short paragraphs explaining what went wrong, in plain terms. Use blank lines between paragraphs.
+OUTPUT FORMAT:
+- First line MUST be exactly: TOPIC: <the tip you're writing about, 5-12 words>
+- Then a blank line
+- Then the post body
+- End with 3-4 lowercase hashtags on the last line
 
-3. The fix: a short code block (Python, R, or bash — whichever fits the topic) of 4-10 lines, OR a 3-step bullet list. Make it copyable. Use ``` fenced code blocks for code, with a language tag.
+The story structure:
+- Setup (1-2 lines): the context, what you were trying to do
+- Mistake (1-2 lines): the wrong path you took
+- Catch (1-2 lines): how you realized something was off
+- Lesson (1-2 lines): the takeaway, stated plainly
 
-4. The lesson: 1-2 sentences zooming out. Not "always remember to..." — something more honest like "I still mess this up sometimes, but knowing the failure mode means I catch it faster now."
+You can include a short code snippet or pseudocode if it helps clarify.
+Write in first person, conversational.
 
-5. Close with a question to the reader: "What's a bioinformatics gotcha that bit you recently?" or similar.
+DO NOT lecture. The voice is "here's what I learned the hard way", not
+"here are best practices."
 
-6. 3-4 hashtags max, lowercase: #bioinformatics #pythonforbiology #datascience #proteomics #computationalbiology — pick what fits.
-
-Output format: just the post text, ready to paste to LinkedIn. No preamble, no markdown headers. Code blocks in triple backticks are fine — LinkedIn doesn't render them but Kalyani will reformat manually.
-
-Make it specific. "Always check your data" is useless. "Always run `df.dtypes` before merging — pandas will silently coerce your protein IDs to floats if they happen to look numeric" is the post.
+Output the TOPIC line + post text. Nothing else.

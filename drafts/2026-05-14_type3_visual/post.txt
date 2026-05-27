@@ -1,9 +1,0 @@
-I remember the early days when I first started coding... my `base` environment was a tangled mess! It was like a digital junk drawer.
-
-I'd just `pip install` anything and everything. Then, a few months later, I'd start a new project, and suddenly nothing worked. Dependency conflicts everywhere! It felt like trying to make two different recipes in the same mixing bowl.
-
-It took me a while to learn that keeping projects isolated is crucial. A dedicated `conda` environment for each project (or even specific analyses) prevents version nightmares and ensures reproducibility. Future you will thank current you!
-
-Card below 👇 Save this for your next project setup!
-
-#bioinformatics #python #condatips #compbio

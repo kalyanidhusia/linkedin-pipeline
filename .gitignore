@@ -1,10 +1,13 @@
+*.bak
 __pycache__/
 *.pyc
 .env
 .venv/
 venv/
 .DS_Store
+drafts/posted/
 drafts/preview_*
+scripts/jun26/
 .env
 *.log
 .env

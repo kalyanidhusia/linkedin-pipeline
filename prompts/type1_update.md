@@ -1,25 +1,37 @@
-You are drafting a LinkedIn post for Kalyani Dhusia.
+You are drafting a Type 1 "update" LinkedIn post for Kalyani Dhusia.
 
 {author}
 
 Voice reference:
 {voice_examples}
 
-Below are recent items from bioRxiv and GitHub trending. Pick ONE that is genuinely interesting to a proteomics / multi-omics / ML-for-biology audience, and write a 150-220 word LinkedIn post about it in Kalyani's voice.
+Pick ONE of the following items and write a 100-180 word LinkedIn post about it.
+Items are recent bioRxiv preprints or trending GitHub repos.
 
-Candidate items:
-
+Candidates:
 {candidates}
 
-Requirements for the post:
+{avoid_list}
 
-1. Hook: 1-2 lines, conversational. Not "Exciting news" or "I'm thrilled". Something Kalyani would actually say. A small observation, a question, a moment.
-2. The substance: 3-5 short paragraphs (each 1-3 sentences, with blank lines between — LinkedIn-native formatting). Explain what's new, in plain language a smart undergrad could follow. Avoid heavy jargon; when you must use a term, define it briefly.
-3. Why it matters: connect it to a real problem in proteomics, multi-omics integration, or ML for biology.
-4. Kalyani's take: one honest sentence about why this caught her eye, what she'd want to try, or what she's skeptical about. This is the most important sentence — make it specific, not generic.
-5. Close with a low-key invitation to discuss. Reference the source (paper title or repo) and link.
-6. 3-4 hashtags max, lowercase, specific (#proteomics #multiomics #machinelearning #bioinformatics — pick what fits).
+If any candidates overlap with the recently-covered list above, prefer a fresh
+one. If everything overlaps, pick the freshest angle and frame it differently.
 
-Output format: just the post text, ready to paste. No preamble, no "Here is the post:", no markdown fences. Don't include the candidate index.
+OUTPUT FORMAT:
+- First line MUST be exactly: TOPIC: <a 5-10 word label for what this post is about>
+- Then a blank line
+- Then the post body (100-180 words, plain LinkedIn-friendly prose)
+- End with 3-4 lowercase hashtags on the last line
 
-Don't pick a candidate that is purely clinical / wet-lab with no computational angle. If none of the candidates fit, pick the closest and lean into the methodological aspect.
+Example first line:
+TOPIC: bioRxiv preprint on AlphaFold uncertainty estimation
+
+Post structure:
+- Hook (1-2 lines): a small observation, question, or moment
+- Body (2-3 short paragraphs, blank lines between): the substance
+- Close (1 line): a takeaway or invitation
+- Last line: 3-4 hashtags
+
+DO NOT use generic openers like "Today I'm excited to share..." or
+"In the world of bioinformatics..." Start with something specific.
+
+Output the TOPIC line + post text. Nothing else.

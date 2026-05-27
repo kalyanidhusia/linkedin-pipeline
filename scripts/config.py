@@ -56,6 +56,7 @@ TYPE_WEIGHTS = {
     "type1_update": 1.0,
     "type2_tip": 1.4,
     "type3_visual": 1.0,
+    "type4_koshish": 1.2,
 }
 
 #TYPE_WEIGHTS = {

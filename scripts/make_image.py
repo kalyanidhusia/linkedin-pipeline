@@ -231,8 +231,8 @@ def _paste_headshot(bg: Image.Image, position: str) -> tuple[int, int]:
 
     # Constrain photo to roughly half the card width (with a small overhang)
     # AND to a sensible height. Use the tighter of the two ratios.
-    max_w = int(CARD_W * 0.75)   # 75% of card width
-    max_h = int(CARD_H * 0.85)   # 85% of card height
+    max_w = int(CARD_W * 0.55)   # 55% of card width
+    max_h = int(CARD_H * 0.95)   # 95% of card height
     ratio = min(max_w / photo.width, max_h / photo.height)
     new_w = int(photo.width * ratio)
     new_h = int(photo.height * ratio)

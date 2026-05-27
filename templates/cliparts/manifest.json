@@ -1,0 +1,93 @@
+{
+  "_comment_": "Clipart manifest for Type 4 Koshish cards. Each entry has tags used by the matcher to pick cliparts based on the LLM's per-section clipart hints. Style 'line-art' blends best with the notebook page; 'framed' icons have built-in cream backgrounds and look more like stickers.",
+
+  "nextflow.png": {
+    "tags": ["nextflow", "workflow", "pipeline", "orchestration", "dataflow"],
+    "style": "line-art"
+  },
+  "docker.png": {
+    "tags": ["docker", "containers", "devops", "reproducibility", "deployment", "infrastructure"],
+    "style": "flat-color"
+  },
+  "dna_flow.png": {
+    "tags": ["dna", "sequencing", "genomics", "biology", "data flow", "single-cell", "expression"],
+    "style": "line-art"
+  },
+  "dna_helix.png": {
+    "tags": ["dna", "genomics", "sequencing", "biology", "genetics", "molecular"],
+    "style": "line-art"
+  },
+  "cancer_cells.png": {
+    "tags": ["cancer", "oncology", "cell biology", "pathology", "wet lab", "imaging", "histology"],
+    "style": "flat-color"
+  },
+  "cancer_organ.png": {
+    "tags": ["cancer", "oncology", "tissue", "anatomy", "clinical", "pathology", "biomarkers"],
+    "style": "flat-color"
+  },
+  "gene_expression.png": {
+    "tags": ["gene expression", "transcription", "translation", "protein", "rna", "central dogma", "proteomics"],
+    "style": "line-art"
+  },
+  "gene_function.png": {
+    "tags": ["gene function", "molecular machinery", "gene regulation", "biology", "engineering", "systems biology"],
+    "style": "line-art"
+  },
+  "brain.png": {
+    "tags": ["brain", "neuroscience", "thinking", "machine learning", "ai", "cognition", "neural"],
+    "style": "flat-color"
+  },
+  "open_book.png": {
+    "tags": ["learning", "education", "reading", "study", "literature", "review", "documentation"],
+    "style": "line-art"
+  },
+  "open_book_color.png": {
+    "tags": ["learning", "education", "reading", "study", "literature", "review", "documentation"],
+    "style": "flat-color"
+  },
+  "file_cabinet.png": {
+    "tags": ["data storage", "files", "database", "archive", "records", "organization", "data management"],
+    "style": "flat-color"
+  },
+  "world_map.png": {
+    "tags": ["global", "collaboration", "international", "world", "geography", "scale", "distributed"],
+    "style": "flat-color"
+  },
+  "path_distance.png": {
+    "tags": ["pipeline", "workflow", "journey", "process", "route", "steps", "method"],
+    "style": "line-art"
+  },
+  "growth_arrow.png": {
+    "tags": ["growth", "trend", "improvement", "metrics", "performance", "results", "statistics", "increase"],
+    "style": "line-art"
+  },
+  "bar_chart.png": {
+    "tags": ["statistics", "visualization", "results", "data", "comparison", "metrics", "analysis"],
+    "style": "line-art"
+  },
+  "computer.png": {
+    "tags": ["computing", "hardware", "development", "coding", "computer", "workstation"],
+    "style": "line-art"
+  },
+
+  "ai_script.png": {
+    "tags": ["ai", "scripting", "automation", "code", "programming"],
+    "style": "framed"
+  },
+  "anaconda.png": {
+    "tags": ["conda", "anaconda", "python", "environment", "package management", "data science"],
+    "style": "framed"
+  },
+  "gcp.png": {
+    "tags": ["gcp", "google cloud", "cloud computing", "infrastructure", "hpc", "cloud"],
+    "style": "framed"
+  },
+  "linkedin.png": {
+    "tags": ["linkedin", "networking", "community", "professional", "social"],
+    "style": "framed"
+  },
+  "linux.png": {
+    "tags": ["linux", "unix", "command line", "shell", "operating system", "server"],
+    "style": "framed"
+  }
+}
