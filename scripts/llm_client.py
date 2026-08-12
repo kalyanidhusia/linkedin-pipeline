@@ -13,7 +13,8 @@ def _detect_provider() -> str:
         return LLM_PROVIDER
     if os.environ.get("ANTHROPIC_API_KEY"):
         return "anthropic"
-    if os.environ.get("GEMINI_API_KEY"):
+    #if os.environ.get("GEMINI_API_KEY"):
+    if os.environ.get("AIzaSyB3tCgRjrdIMFzRt0Y5KLvKzBCReDKDNLE"):
         return "gemini"
     if os.environ.get("OPENAI_API_KEY"):
         return "openai"
@@ -99,6 +100,7 @@ def generate(prompt: str, system: str = "", max_tokens: int = 1500,
         from google.genai import types
 
         client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+        #client = genai.Client(api_key=os.environ["AIzaSyB3tCgRjrdIMFzRt0Y5KLvKzBCReDKDNLE"])
         config_kwargs = {
             "system_instruction": system or None,
             "max_output_tokens": max_tokens,

@@ -1,7 +1,0 @@
-When I first started diving into machine learning for biology, I was so excited to just throw my data into an algorithm and see what came out.
-
-It felt like I was skipping to dessert! My models would run, give me numbers, but I often felt disconnected from the 'why'. I've learned the hard way that jumping straight to complex ML models without really looking at your raw data first can lead to confusing results. We're making dumb machines solve biological problems, but even they need good inputs and a human understanding. For proteomics, a simple histogram of intensities or a PCA plot can tell you so much about batch effects or outliers *before* you think about differential analysis or training a classifier. It's like checking the ingredients before you bake the cake.
-
-Now, my first day on a new dataset usually involves histograms, box plots, and PCA. It helps me understand the landscape and catch weirdness early, saving so much headache later! What's your favorite 'first look' at data? Meanwhile, making dumb machines solve biological problems!
-
-#computationalbiology #machinelearning #datavisualization #proteomics

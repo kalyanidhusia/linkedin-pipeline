@@ -1,0 +1,13 @@
+I was chatting with a student recently who was thrilled about their single-cell RNA-seq experiment, profiling thousands of cells. It got me thinking about a common analytical trap.
+
+A Medium post by Ardo Sanjaya perfectly articulates it: "Why 10,000 cells is sometimes just N = 6." We get excited about thousands of cells, but when we pseudobulk for differential expression, our *effective* N often shrinks to the number of *patients* or *samples*.
+
+This isn't just a nuance; it impacts statistical power. While each cell offers rich data, robust comparisons between conditions depend on those biological replicates. I'm still figuring out the best ways to balance cell-level resolution with strong sample-level statistics, especially in complex multi-omics.
+
+It's a good reminder to always ask: what's our true N here? It helps keep our "dumb machines" from getting too confident! What are your strategies for handling pseudobulking?
+
+#singlecell
+#bioinformatics
+#computationalbiology
+
+#dataanalysis

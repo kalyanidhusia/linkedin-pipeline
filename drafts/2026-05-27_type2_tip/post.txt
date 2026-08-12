@@ -1,9 +1,0 @@
-My first big multi-omics project involved integrating RNA-seq and proteomics from patient tumors. I was excited to see the full biological picture with two shiny dataframes.
-
-Naively, I tried to `pandas.merge()` them directly using gene symbols and protein names. "They're just names, right? How different can they be?" I thought, hitting `run()`.
-
-The merged dataframe was almost empty – maybe 30% of original features! Panic. Manual inspection of `df_rna['gene_symbol'].head()` vs `df_prot['protein_name'].head()` revealed the mess: "TP53" vs "P53", "EGFR" vs "Epidermal growth factor receptor". Aliases and database quirks everywhere.
-
-Lesson learned: Always map identifiers to a common standard like UniProt or Ensembl *before* merging. Tools like UniProt's ID mapping service or `mygene.info` are essential. Expect some data loss, but plan for the ID headache upfront! I'm still figuring out the best strategies, meanwhile, making dumb machines solve biological problems!
-
-#multiomics #bioinformatics #proteomics #dataintegration
