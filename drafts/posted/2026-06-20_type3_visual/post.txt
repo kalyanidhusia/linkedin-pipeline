@@ -1,0 +1,9 @@
+I remember my first classification model with 99% accuracy. So proud! Then my mentor asked, "What about your minority class?" My heart sank. That 1% error was what I cared about; my model was just great at predicting abundant 'normal' cases.
+
+It's easy to get excited by a big accuracy number. But in biology, we often hunt for rare events – a specific mutation or a tiny cell subpopulation. If your dataset is imbalanced, a model can achieve high accuracy by simply predicting the majority class.
+
+That's why I always dive deeper. Instead of just accuracy, I check precision and recall for each class. It tells you if your model is actually finding what you need, not just what's easy. This lesson stuck with me!
+
+Meanwhile, making dumb machines solve biological problems!
+
+#computationalbiology #machinelearning #bioinformatics #datametrics

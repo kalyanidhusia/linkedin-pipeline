@@ -1,0 +1,9 @@
+I remember my first multi-omics integration attempt like it was yesterday. So much excitement to combine RNA-seq and proteomics!
+
+The plan seemed simple: take my gene IDs, take my protein IDs, and merge them. How hard could it be? Well, it turns out 'gene ID' and 'protein ID' aren't always speaking the same language. I quickly ran into issues with UniProt IDs not matching Ensembl IDs, different versions, and case sensitivity.
+
+I lost about 30-40% of my data in that first attempt, which felt like a punch to the gut. It was a tough lesson that ID mapping isn't a minor detail, but a foundational step you need to plan for rigorously. Now, I always build in robust ID mapping (shoutout to tools like BioMart!) and set clear expectations for inevitable data loss.
+
+Notes from my terminal this week 👇
+
+#bioinformatics #multiomics #proteomics #computationalbiology

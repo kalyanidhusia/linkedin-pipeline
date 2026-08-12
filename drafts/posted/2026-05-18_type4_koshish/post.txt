@@ -1,0 +1,11 @@
+I remember the first time I thought I was being super efficient in my preprocessing pipeline.
+
+I scaled my entire dataset, then split it into train and test. My model metrics looked great, almost *too* good. It took a while to realize I'd introduced a subtle, silent data leak.
+
+When you scale your entire dataset before splitting, information from your test set (like min/max or mean/std) gets incorporated into the scaling parameters. Your model then learns from test data it shouldn't have seen. It's like peeking at the answer key!
+
+This is especially tricky in biological data. Small leaks can lead to big overestimations of performance. Always split your data first, then fit your scaler *only* on the training set.
+
+Notes from my terminal this week 👇
+
+#machinelearning #computationalbiology #dataleakage #bioinformatics

@@ -1,0 +1,9 @@
+I still remember the day I first tried to integrate proteomics and RNA-seq data. My mind was buzzing with all the insights we'd unlock, truly making dumb machines solve biological problems!
+
+I thought, 'This will be easy!' I just merged on gene names, expecting a beautiful, comprehensive table. Pandas ran without a hitch, giving me a tiny dataframe. Turns out, different databases use different naming conventions, and 70% of my data just vanished. My heart sank a little.
+
+It was a stark reminder that the real work in computational biology often isn't about the complex ML models, but the careful, often tedious, data wrangling upfront. Mapping IDs correctly is crucial. I'm still figuring this out, but I've learned to budget serious time for ID harmonization.
+
+Notes from my desk this week 👇
+
+#bioinformatics #multiomics #proteomics #datawrangling
