@@ -1,0 +1,9 @@
+I remember my first time running differential expression on thousands of genes. My script churned, and *poof* – hundreds of 'significant' genes with p<0.05 appeared. I felt like a wizard!
+
+Then my mentor asked, 'Did you correct for multiple testing?' My wizard hat shrunk. Testing 10,000 features means some 'significant' results are just by chance. That p<0.05 threshold loses meaning without adjustment.
+
+We then dug into FDR, Bonferroni, and Benjamini-Hochberg. This was a humbling lesson: sometimes, statistical hygiene impacts results more than a fancy ML model. My 'significant' list shrank, but it became far more trustworthy.
+
+Notes from my terminal this week 👇 Meanwhile, making dumb machines solve biological problems!
+
+#computationalbiology #proteomics #statistics #bioinformatics

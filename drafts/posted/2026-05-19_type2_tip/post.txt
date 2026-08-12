@@ -1,0 +1,30 @@
+I once spent a whole afternoon chasing down why my "matching" protein IDs weren't matching after a pandas merge. Turns out, pandas had a secret plan for my data types.
+
+I was trying to combine a proteomics dataset (with UniProt IDs like 'P0DMV9', which are clearly strings) with a gene expression table (where some genes were represented by their numeric Ensembl IDs, e.g., '10000'). I thought, "Easy, just merge on the shared identifier column!" What could go wrong?
+
+The problem? Some of my UniProt IDs, like '10000_HUMAN' or even just '12345' (if they happen to be purely numeric-looking), appeared to pandas like numbers. To be "helpful" and avoid mixed types in a column, pandas silently coerced the *entire* column to a float type (e.g., '12345' became 12345.0). Suddenly, 'P0DMV9' couldn't merge with 'P0DMV9' because one was a string and the other was trying to be a float, even if they looked identical.
+
+My merge operation was silently dropping almost 30% of my rows because of these type mismatches, and I had no idea why. My code ran, no errors were thrown, and the merged DataFrame just looked... smaller. It took me a long time checking column names, capitalization, and whitespace before I finally stumbled upon the `df.dtypes` output.
+
+The fix is deceptively simple: explicitly convert your ID columns to string *before* merging.
+
+```python
+import pandas as pd
+
+# Assuming df1 and df2 are your dataframes
+# And 'ID_column' is the shared identifier
+
+# Good practice:
+df1['ID_column'] = df1['ID_column'].astype(str)
+df2['ID_column'] = df2['ID_column'].astype(str)
+merged_df = pd.merge(df1, df2, on='ID_column', how='inner')
+
+# Always check dtypes after any merge or load!
+print(merged_df.dtypes)
+```
+
+I still catch myself forgetting this sometimes, but now, `df.dtypes` is the first thing I type after any data loading or merge operation. It's a tiny step that saves huge headaches.
+
+What's a simple bioinformatics gotcha that bit you hard recently?
+
+#bioinformatics #pythonforbiology #pandas #datascience #computationalbiology

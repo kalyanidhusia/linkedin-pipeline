@@ -1,14 +1,26 @@
-*.bak
-__pycache__/
-*.pyc
+# Secrets
 .env
+.env.*
+gemini_key.txt
+*_key.txt
+secrets.*
+
+# Python
+__pycache__/
+*.py[cod]
 .venv/
 venv/
-.DS_Store
-drafts/posted/
-drafts/preview_*
-scripts/jun26/
-.env
+
+# Generated/runtime
+cache/
 *.log
-.env
-gemini_key.txt
+
+# Temporary/backups
+*.bak
+.DS_Store
+
+# Generated previews
+drafts/preview_*
+
+# Local development
+scripts/jun26/

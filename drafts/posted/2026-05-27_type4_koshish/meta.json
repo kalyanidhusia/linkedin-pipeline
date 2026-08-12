@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-05-27T10:39:18",
+  "hashtags": [
+    "#bioinformatics",
+    "#multiomics",
+    "#proteomics",
+    "#datawrangling"
+  ],
+  "source_links": [],
+  "topic": "Multi-omics ID mismatch woes",
+  "title": "Proteomics meets RNA-seq IDs",
+  "sections": [
+    {
+      "label": "1. The Big Idea",
+      "bullets": [
+        "Integrate multi-omics data.",
+        "Unlock deeper biological insights."
+      ]
+    },
+    {
+      "label": "2. My First Try",
+      "bullets": [
+        "Merged on common gene names.",
+        "Pandas ran without error."
+      ]
+    },
+    {
+      "label": "3. The Catch",
+      "bullets": [
+        "Merged table was tiny.",
+        "Only 30% IDs actually matched."
+      ]
+    },
+    {
+      "label": "4. My Lesson",
+      "bullets": [
+        "Map IDs *before* merging.",
+        "Use UniProt, Ensembl tools."
+      ]
+    }
+  ],
+  "closing_note": "Multi-omics is 80% data wrangling, 20% fancy algorithms.",
+  "clipart_hints": []
+}

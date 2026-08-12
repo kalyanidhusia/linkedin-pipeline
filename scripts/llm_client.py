@@ -13,8 +13,7 @@ def _detect_provider() -> str:
         return LLM_PROVIDER
     if os.environ.get("ANTHROPIC_API_KEY"):
         return "anthropic"
-    #if os.environ.get("GEMINI_API_KEY"):
-    if os.environ.get("AIzaSyB3tCgRjrdIMFzRt0Y5KLvKzBCReDKDNLE"):
+    if os.environ.get("GEMINI_API_KEY"):
         return "gemini"
     if os.environ.get("OPENAI_API_KEY"):
         return "openai"

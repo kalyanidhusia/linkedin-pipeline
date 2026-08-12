@@ -1,0 +1,44 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-05-18T15:32:46",
+  "hashtags": [
+    "#machinelearning",
+    "#computationalbiology",
+    "#dataleakage",
+    "#bioinformatics"
+  ],
+  "source_links": [],
+  "topic": "Data Leakage Warning",
+  "title": "The Silent Data Leak",
+  "sections": [
+    {
+      "label": "1. The Setup",
+      "bullets": [
+        "Clean data, ready for ML.",
+        "Time to scale features (e.g., StandardScaler)."
+      ]
+    },
+    {
+      "label": "2. The Mistake",
+      "bullets": [
+        "Scaling *all* data at once.",
+        "Then splitting into train/test."
+      ]
+    },
+    {
+      "label": "3. The Leak",
+      "bullets": [
+        "Test set info bleeds into training.",
+        "Model learns from \"future\" data."
+      ]
+    },
+    {
+      "label": "4. The Fix",
+      "bullets": [
+        "Split data into train/test FIRST.",
+        "Fit scaler on *training* data only. Transform both."
+      ]
+    }
+  ],
+  "closing_note": "Normalize after the split, always. Protect your test set from peeking!"
+}

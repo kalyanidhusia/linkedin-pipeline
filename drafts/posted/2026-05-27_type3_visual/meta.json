@@ -1,0 +1,15 @@
+{
+  "type": "type3_visual",
+  "generated_at": "2026-05-27T10:18:55",
+  "hashtags": [
+    "#computationalbiology",
+    "#machinelearning",
+    "#datavisualization",
+    "#proteomics"
+  ],
+  "source_links": [],
+  "topic": "Plot your data before ML",
+  "dont": "Start ML before plotting raw data",
+  "do": "Spend Day 1 on histograms and PCA",
+  "caption_truncated": false
+}

@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-06-20T22:23:00",
+  "hashtags": [
+    "#computationalbiology",
+    "#proteomics",
+    "#statistics",
+    "#bioinformatics"
+  ],
+  "source_links": [],
+  "topic": "Multiple testing correction insights",
+  "title": "My p-value correction journey",
+  "sections": [
+    {
+      "label": "1. First Run",
+      "bullets": [
+        "10k features, p<0.05 results",
+        "Felt like a genius"
+      ]
+    },
+    {
+      "label": "2. The Problem",
+      "bullets": [
+        "Many false positives",
+        "P-value loss of meaning"
+      ]
+    },
+    {
+      "label": "3. The Fix",
+      "bullets": [
+        "FDR, Bonferroni, Benjamini-Hochberg",
+        "Adjusted p-values"
+      ]
+    },
+    {
+      "label": "4. My Lesson",
+      "bullets": [
+        "Correction > model choice",
+        "Trust adjusted values"
+      ]
+    }
+  ],
+  "closing_note": "Adjusted p-values are your best friend in high-throughput data analysis.",
+  "clipart_hints": []
+}

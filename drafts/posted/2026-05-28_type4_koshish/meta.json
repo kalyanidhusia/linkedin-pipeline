@@ -1,0 +1,47 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-05-28T16:49:43",
+  "hashtags": [
+    "#bioinformatics",
+    "#multiomics",
+    "#proteomics",
+    "#computationalbiology"
+  ],
+  "source_links": [],
+  "topic": "Multi-omics ID mismatch woes",
+  "title": "Integrating omics data IDs",
+  "sections": [
+    {
+      "label": "1. The Idea",
+      "bullets": [
+        "Merge RNA-seq & proteomics",
+        "Explore cancer pathways"
+      ]
+    },
+    {
+      "label": "2. My First Try",
+      "bullets": [
+        "Pulled gene IDs from RNA",
+        "Protein IDs from mass spec"
+      ]
+    },
+    {
+      "label": "3. The Mismatch",
+      "bullets": [
+        "IDs didn't align directly",
+        "UniProt vs. Ensembl vs. Entrez",
+        "Lost ~30-40% of data"
+      ]
+    },
+    {
+      "label": "4. The Lesson",
+      "bullets": [
+        "Map IDs early in workflow",
+        "Use tools like BioMart",
+        "Expect some data loss"
+      ]
+    }
+  ],
+  "closing_note": "ID mapping is a critical, often overlooked, step in multi-omics integration.",
+  "clipart_hints": []
+}

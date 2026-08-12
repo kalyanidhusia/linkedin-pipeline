@@ -1,0 +1,15 @@
+{
+  "type": "type3_visual",
+  "generated_at": "2026-06-20T22:23:32",
+  "hashtags": [
+    "#computationalbiology",
+    "#machinelearning",
+    "#bioinformatics",
+    "#datametrics"
+  ],
+  "source_links": [],
+  "topic": "Model accuracy on imbalanced data",
+  "dont": "Trust 99% accuracy on imbalanced data",
+  "do": "Check precision and recall per class",
+  "caption_truncated": false
+}

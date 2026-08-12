@@ -1,0 +1,15 @@
+{
+  "type": "type3_visual",
+  "generated_at": "2026-05-19T13:05:22",
+  "hashtags": [
+    "#python",
+    "#conda",
+    "#bioinformatics",
+    "#computationalbiology"
+  ],
+  "source_links": [],
+  "topic": "Python Environments: Base vs. Project-Specific",
+  "dont": "Pip-install into your base environment",
+  "do": "Use one Conda env per project, always",
+  "caption_truncated": false
+}

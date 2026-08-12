@@ -1,0 +1,15 @@
+{
+  "type": "type3_visual",
+  "generated_at": "2026-05-13T00:52:19",
+  "hashtags": [
+    "#machinelearning",
+    "#computationalbiology",
+    "#datascience",
+    "#bioinformatics"
+  ],
+  "source_links": [],
+  "topic": "Normalization in ML pipelines",
+  "dont": "Normalize before train/test split",
+  "do": "Fit normalizer on train, transform all",
+  "caption_truncated": false
+}
