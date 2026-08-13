@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-08-13T15:31:41",
+  "hashtags": [
+    "#proteomics",
+    "#bioinformatics",
+    "#datavisualization",
+    "#computationalbiology"
+  ],
+  "source_links": [],
+  "topic": "Log-transform proteomics intensities",
+  "title": "Proteomics data transformation",
+  "sections": [
+    {
+      "label": "1. The Raw Data",
+      "bullets": [
+        "Proteomics data often skewed",
+        "Many low counts, few high"
+      ]
+    },
+    {
+      "label": "2. Why Transform?",
+      "bullets": [
+        "Linear model assumptions",
+        "Variance linked to mean"
+      ]
+    },
+    {
+      "label": "3. The Log Solution",
+      "bullets": [
+        "Log2 stabilizes variance",
+        "Data becomes more Gaussian"
+      ]
+    },
+    {
+      "label": "4. When to Apply",
+      "bullets": [
+        "Before differential analysis",
+        "Almost always, best practice"
+      ]
+    }
+  ],
+  "closing_note": "Log-transforming proteomics data makes your downstream stats much more reliable.",
+  "clipart_hints": []
+}
