@@ -5,7 +5,7 @@ Auto-selects provider based on which API key is set.
 import time
 import os
 from config import LLM_MODELS, LLM_PROVIDER
-from dotenv import ad_dotenv
+from dotenv import load_dotenv
 
 load_dotenv()
 

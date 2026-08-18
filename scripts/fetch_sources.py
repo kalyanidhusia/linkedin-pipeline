@@ -130,16 +130,38 @@ def _clean(html: str) -> str:
     text = re.sub(r"<[^>]+>", " ", html)
     return re.sub(r"\s+", " ", text).strip()[:500]
 
+def load_project_series(project: str) -> list[str]:
+    """Read one project-series source file, one milestone per bullet."""
+    path = ROOT / "sources" / "projects" / f"{project}.md"
+    return _load_bullets(path)
 
-def gather_all() -> dict[str, Any]:
+def load_project_series(project: str) -> list[str]:
+    """Load one project-series file, one milestone per bullet."""
+    path = ROOT / "sources" / "projects" / f"{project}.md"
+    if not path.exists():
+        raise RuntimeError(
+            f"Project source not found: {path}"
+        )
+    items = _load_bullets(path)
+    if not items:
+        raise RuntimeError(
+            f"No project milestones found in: {path}"
+        )
+    return items
+
+def gather_all(project: str | None = None) -> dict[str, Any]:
     """One-shot collector for the generate script."""
-    return {
+    data = {
         "biorxiv": fetch_biorxiv(),
         "github": fetch_github_trending(),
         "idea_bank": load_idea_bank(),
         "tips": load_tips(),
         "dos_donts": load_dos_donts(),
+        "project_series": [],
     }
+    if project:
+        data["project_series"] = load_project_series(project)
+    return data
 
 
 if __name__ == "__main__":
