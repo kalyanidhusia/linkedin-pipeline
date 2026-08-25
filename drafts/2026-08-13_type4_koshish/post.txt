@@ -1,0 +1,9 @@
+I remember staring at my first proteomics dataset, raw intensities all over the place, and thinking, "How is anything going to make sense of this?"
+
+That's when I learned about log-transformation. It's a simple step, but it often feels like magic for proteomics data. Raw intensities are usually heavily skewed, with a long tail of high values and many low ones. This can mess with statistical models that assume a more normal distribution or constant variance.
+
+Applying a log2 transformation (or similar) helps stabilize the variance, making the data behave much better for things like differential expression analysis. It's one of those foundational steps that I now bake into almost every proteomics pipeline. It's not always perfect, but it's a great default to start with.
+
+Notes from my desk this week 👇
+
+#proteomics #bioinformatics #datavisualization #computationalbiology

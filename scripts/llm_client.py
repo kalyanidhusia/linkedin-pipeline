@@ -5,7 +5,9 @@ Auto-selects provider based on which API key is set.
 import time
 import os
 from config import LLM_MODELS, LLM_PROVIDER
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def _detect_provider() -> str:
     """Pick provider based on env vars, in priority order."""

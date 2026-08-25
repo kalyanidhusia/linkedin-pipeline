@@ -246,32 +246,108 @@ def build_type3(sources: dict) -> tuple[str, str, list[str]]:
 
 
 def build_type4(sources: dict) -> tuple[str, str, list[str]]:
-    """Koshish notebook note. Draws from tips + idea_bank for source content
-    (same pool as Type 2 — these are story-shaped lessons), and the LLM
-    reformats them into title + sections + closing structure."""
-    tips = sources["tips"]
-    ideas = sources["idea_bank"]
-    if not tips and not ideas:
-        raise RuntimeError("Add at least a few tips to sources/tips.md")
-    pool = tips + [i["title"] for i in ideas]
+    """Koshish notebook post.
 
-    # Add external community topics
-    external = _safe_external_topics(limit=10)
-    fresh = [t for t in external if t["score"] > 0][:5]
-    pool.extend([f"{t['title']} (from {t['source']})" for t in fresh])
+    If a project is supplied, use ONLY that project's milestone pool.
+    If --topic is supplied, use ONLY the matching project milestone.
+    Otherwise fall back to the normal tips + idea-bank behavior.
+    """
+
+    project_series = sources.get("project_series", [])
+    requested_topic = sources.get("_topic")
+    project_name = sources.get("_project")
+
+    # ── PROJECT MODE ───────────────────────────────
+    if project_series:
+
+        if requested_topic:
+            wanted = requested_topic.strip().lower()
+
+            matches = []
+
+            for item in project_series:
+                # Expected format:
+                # ORIGIN | description...
+                milestone_name = item.split("|", 1)[0].strip()
+
+                if milestone_name.lower() == wanted:
+                    matches.append(item)
+
+            if not matches:
+                available = [
+                    item.split("|", 1)[0].strip()
+                    for item in project_series
+                ]
+
+                raise RuntimeError(
+                    f"Topic '{requested_topic}' not found "
+                    f"in project '{project_name}'.\n"
+                    f"Available topics:\n  - "
+                    + "\n  - ".join(available)
+                )
+
+            pool = matches
+
+            print(
+                f"  ✓ Selected project milestone: "
+                f"{matches[0].split('|', 1)[0].strip()}"
+            )
+
+        else:
+            pool = project_series
+            print(
+                f"  ✓ Loaded {len(pool)} milestones "
+                f"from project '{project_name}'"
+            )
+
+    # ── NORMAL TYPE-4 MODE ─────────────────────────
+    else:
+        if requested_topic:
+            raise RuntimeError(
+                "--topic requires --project"
+            )
+
+        tips = sources["tips"]
+        ideas = sources["idea_bank"]
+
+        if not tips and not ideas:
+            raise RuntimeError(
+                "Add at least a few tips to sources/tips.md"
+            )
+
+        pool = tips + [i["title"] for i in ideas]
+
+        # External topics belong ONLY in normal mode.
+        external = _safe_external_topics(limit=10)
+        fresh = [
+            t for t in external
+            if t["score"] > 0
+        ][:5]
+
+        pool.extend([
+            f"{t['title']} (from {t['source']})"
+            for t in fresh
+        ])
 
     pool_str = "\n".join(f"- {t}" for t in pool)
+
     voice = _load("voice_examples.md")
     template = _load("type4_koshish.md")
+
     avoid_list = topic_dedup.format_avoid_list(
-        topic_dedup.get_recent_topics("type4_koshish", limit=12)
+        topic_dedup.get_recent_topics(
+            "type4_koshish",
+            limit=12
+        )
     )
+
     prompt = template.format(
         author=_author_block(),
         voice_examples=voice,
         topic_pool=pool_str,
         avoid_list=avoid_list,
     )
+
     return prompt, "type4_koshish", []
 
 
@@ -390,7 +466,11 @@ def _write_post(folder: Path, post_text: str, post_type: str, hashtags: list[str
     (folder / "meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
 
-def run(forced_type: str | None = None) -> None:
+def run(
+    forced_type: str | None = None,
+    project: str | None = None,
+    topic: str | None = None,
+) -> None:
     DRAFTS.mkdir(exist_ok=True)
     post_type = pick_type(forced_type)
     if forced_type:
@@ -399,7 +479,16 @@ def run(forced_type: str | None = None) -> None:
         print(f"→ Picked: {post_type}")
 
     print("→ Fetching sources...")
-    sources = gather_all()
+    sources = gather_all(project=project)
+
+    sources["_project"] = project
+    sources["_topic"] = topic
+
+    if project:
+        print(f"→ Project: {project}")
+
+    if topic:
+        print(f"→ Project topic: {topic}")
 
     print("→ Building prompt...")
     prompt, type_label, source_links = BUILDERS[post_type](sources)
@@ -567,6 +656,17 @@ if __name__ == "__main__":
              "(e.g. type4_koshish), or a keyword (e.g. koshish). "
              "If omitted, a type is picked at random by weight.")
     parser.add_argument(
+        "--project",
+        help="Use a named project series from sources/projects/<name>.md")
+    parser.add_argument(
+        "--topic",
+        default=None,
+        help=(
+            "Select one milestone from the project series, "
+            "for example: --topic ORIGIN"
+        ),
+    )
+    parser.add_argument(
         "--list-types", action="store_true",
         help="List the available post types and exit.")
     args = parser.parse_args()
@@ -577,4 +677,8 @@ if __name__ == "__main__":
             print(f"  {i + 1}  {t}  (weight {TYPE_WEIGHTS[t]})")
         raise SystemExit(0)
 
-    run(forced_type=args.type)
+    run(
+        forced_type=args.type,
+        project=args.project,
+        topic=args.topic,
+    )
