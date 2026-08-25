@@ -1,0 +1,11 @@
+Remember that time you ran a t-test on proteomics data and got weirdly tiny p-values, or none at all?
+
+I've been there! Early in my journey, I'd just throw raw intensity values into R and hope for the best. My models would complain, or the distributions looked like a mountain range on one side.
+
+Turns out, proteomics data (like many biological measurements) often has a super wide range of values and isn't normally distributed. Linear models, like those behind a t-test or ANOVA, really prefer things to be a bit more 'normal-looking' to give you reliable results.
+
+A simple log2 transformation can work wonders. It compresses those wide ranges and makes the data play nicer with statistical tests. It's not magic, but it helps our dumb machines make sense of the biological signals.
+
+Notes from my desk this week 👇 Let's grow together!
+
+#proteomics #bioinformatics #datascience #computationalbiology

@@ -1,0 +1,46 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-08-25T03:27:04",
+  "hashtags": [
+    "#proteomics",
+    "#bioinformatics",
+    "#datascience",
+    "#computationalbiology"
+  ],
+  "source_links": [],
+  "topic": "Log-transform proteomics intensities",
+  "title": "Proteomics Log Transform Wisdom",
+  "sections": [
+    {
+      "label": "1. Raw Data",
+      "bullets": [
+        "Mass spec data often skewed",
+        "Wide range of values"
+      ]
+    },
+    {
+      "label": "2. The Challenge",
+      "bullets": [
+        "Linear models assume normal",
+        "Skewed data breaks assumptions"
+      ]
+    },
+    {
+      "label": "3. The Fix",
+      "bullets": [
+        "Log2 transform intensities",
+        "Makes data more normal"
+      ]
+    },
+    {
+      "label": "4. Why It Works",
+      "bullets": [
+        "Improves stat power",
+        "Reliable p-values emerge",
+        "Better diff analysis"
+      ]
+    }
+  ],
+  "closing_note": "A simple log transform can make your proteomics stats shine.",
+  "clipart_hints": []
+}
