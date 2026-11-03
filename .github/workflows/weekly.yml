@@ -3,6 +3,7 @@ name: Weekly LinkedIn Post
 on:
   schedule:
     - cron: '0 10 * * 1'
+  workflow_dispatch:
 
 concurrency:
   group: linkedin-weekly-post
