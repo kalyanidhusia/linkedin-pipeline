@@ -2,10 +2,12 @@ import os
 import random
 import time
 
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from google.genai.errors import APIError
 
+load_dotenv()
 
 # Only models currently intended for this $0 pipeline.
 # Order = preference order.
