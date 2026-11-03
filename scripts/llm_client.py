@@ -75,19 +75,69 @@ def _select_model(client: genai.Client) -> str:
     )
 
 
+# def _generate_with_retry(
+#     client: genai.Client,
+#     model: str,
+#     prompt: str,
+#     config: types.GenerateContentConfig,
+#     max_attempts: int = 5,
+# ):
+#     """
+#     Retry only transient/quota errors.
+
+#     404 is NOT retried because it indicates an invalid/unavailable model.
+#     400 auth/request errors are NOT retried.
+#     """
+
+#     for attempt in range(1, max_attempts + 1):
+#         try:
+#             return client.models.generate_content(
+#                 model=model,
+#                 contents=prompt,
+#                 config=config,
+#             )
+
+#         except APIError as exc:
+#             code = getattr(exc, "code", None)
+
+#             retryable = code in (429, 500, 502, 503, 504)
+
+#             if not retryable:
+#                 raise
+
+#             if attempt == max_attempts:
+#                 raise RuntimeError(
+#                     f"Gemini failed after {max_attempts} attempts "
+#                     f"with model {model}: {exc}"
+#                 ) from exc
+
+#             # 15, ~30, ~60, ~120 sec plus small jitter
+#             delay = 15 * (2 ** (attempt - 1))
+#             delay += random.uniform(0, 3)
+
+#             print(
+#                 f"  ⚠ Gemini {code} on {model}; "
+#                 f"retry {attempt}/{max_attempts} "
+#                 f"in {delay:.1f}s"
+#             )
+
+#             time.sleep(delay)
+
 def _generate_with_retry(
     client: genai.Client,
     model: str,
     prompt: str,
     config: types.GenerateContentConfig,
-    max_attempts: int = 5,
+    max_attempts: int = 2,
 ):
     """
-    Retry only transient/quota errors.
+    Retry briefly on transient Gemini errors.
 
-    404 is NOT retried because it indicates an invalid/unavailable model.
-    400 auth/request errors are NOT retried.
+    After max_attempts, return control to generate()
+    so it can try the next available model.
     """
+
+    last_exc = None
 
     for attempt in range(1, max_attempts + 1):
         try:
@@ -105,15 +155,12 @@ def _generate_with_retry(
             if not retryable:
                 raise
 
-            if attempt == max_attempts:
-                raise RuntimeError(
-                    f"Gemini failed after {max_attempts} attempts "
-                    f"with model {model}: {exc}"
-                ) from exc
+            last_exc = exc
 
-            # 15, ~30, ~60, ~120 sec plus small jitter
-            delay = 15 * (2 ** (attempt - 1))
-            delay += random.uniform(0, 3)
+            if attempt == max_attempts:
+                break
+
+            delay = 10 * attempt + random.uniform(0, 2)
 
             print(
                 f"  ⚠ Gemini {code} on {model}; "
@@ -123,6 +170,42 @@ def _generate_with_retry(
 
             time.sleep(delay)
 
+    raise last_exc
+
+# def generate(
+#     prompt: str,
+#     system: str = "",
+#     max_tokens: int = 4000,
+#     json_mode: bool = False,
+# ) -> str:
+
+#     client = _client()
+#     model = _select_model(client)
+
+#     kwargs = {
+#         "system_instruction": system or None,
+#         "max_output_tokens": max_tokens,
+#         "temperature": 0.7,
+#     }
+
+#     if json_mode:
+#         kwargs["response_mime_type"] = "application/json"
+
+#     config = types.GenerateContentConfig(**kwargs)
+
+#     response = _generate_with_retry(
+#         client=client,
+#         model=model,
+#         prompt=prompt,
+#         config=config,
+#     )
+
+#     if not response.text:
+#         raise RuntimeError(
+#             f"Gemini returned an empty response from {model}"
+#         )
+
+#     return response.text
 
 def generate(
     prompt: str,
@@ -132,7 +215,27 @@ def generate(
 ) -> str:
 
     client = _client()
-    model = _select_model(client)
+
+    available = _available_generate_models(client)
+
+    candidates = [
+        model
+        for model in MODEL_CANDIDATES
+        if model in available
+    ]
+
+    if not candidates:
+        relevant = sorted(
+            name for name in available
+            if name.startswith("gemini-")
+        )
+
+        raise RuntimeError(
+            "None of the configured Gemini models are available.\n"
+            f"Tried: {', '.join(MODEL_CANDIDATES)}\n"
+            f"Available generateContent models:\n"
+            + "\n".join(f"  - {m}" for m in relevant)
+        )
 
     kwargs = {
         "system_instruction": system or None,
@@ -145,16 +248,42 @@ def generate(
 
     config = types.GenerateContentConfig(**kwargs)
 
-    response = _generate_with_retry(
-        client=client,
-        model=model,
-        prompt=prompt,
-        config=config,
+    errors = []
+
+    for model in candidates:
+        print(f"  → Trying Gemini model: {model}")
+
+        try:
+            response = _generate_with_retry(
+                client=client,
+                model=model,
+                prompt=prompt,
+                config=config,
+                max_attempts=2,
+            )
+
+            if not response.text:
+                raise RuntimeError(
+                    f"Gemini returned an empty response from {model}"
+                )
+
+            print(f"  ✓ Gemini model succeeded: {model}")
+            return response.text
+
+        except APIError as exc:
+            code = getattr(exc, "code", None)
+
+            if code in (429, 500, 502, 503, 504):
+                print(
+                    f"  ⚠ {model} unavailable after retries; "
+                    f"trying next model."
+                )
+                errors.append(f"{model}: {exc}")
+                continue
+
+            raise
+
+    raise RuntimeError(
+        "All configured Gemini models failed.\n"
+        + "\n".join(errors)
     )
-
-    if not response.text:
-        raise RuntimeError(
-            f"Gemini returned an empty response from {model}"
-        )
-
-    return response.text
