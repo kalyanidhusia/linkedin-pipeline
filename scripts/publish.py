@@ -2,13 +2,16 @@ import os
 from pathlib import Path
 
 import requests
+from dotenv import load_dotenv
 
+ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(dotenv_path=ROOT / ".env")
 
 TOKEN = os.getenv("LINKEDIN_ACCESS_TOKEN")
 AUTHOR_URN = os.getenv("LINKEDIN_AUTHOR_URN")
 
-ROOT = Path(__file__).resolve().parent.parent
 DRAFTS = ROOT / "drafts"
+
 
 RESTLI_HEADERS = {
     "Authorization": f"Bearer {TOKEN}",
