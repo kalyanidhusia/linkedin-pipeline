@@ -1,60 +1,194 @@
 import os
-import requests
 from pathlib import Path
 
-LI_TOKEN = os.environ.get("LINKEDIN_ACCESS_TOKEN")
-AUTHOR_URN = os.environ.get("LINKEDIN_AUTHOR_URN")
+import requests
+
+
+TOKEN = os.getenv("LINKEDIN_ACCESS_TOKEN")
+AUTHOR_URN = os.getenv("LINKEDIN_AUTHOR_URN")
+
 ROOT = Path(__file__).resolve().parent.parent
+DRAFTS = ROOT / "drafts"
 
-def get_latest_draft():
-    drafts_dir = ROOT / "drafts"
-    if not drafts_dir.exists():
-        return None
-    dirs = sorted([d for d in drafts_dir.iterdir() if d.is_dir() and d.name != "posted"], reverse=True)
-    return dirs[0] if dirs else None
+RESTLI_HEADERS = {
+    "Authorization": f"Bearer {TOKEN}",
+    "X-Restli-Protocol-Version": "2.0.0",
+    "Content-Type": "application/json",
+}
 
-def post_to_linkedin(draft_dir):
-    post_text = (draft_dir / "post.txt").read_text()
-    img_path = draft_dir / "card.png"
-    
-    headers = {"Authorization": f"Bearer {LI_TOKEN}", "Content-Type": "application/json"}
-    asset_urn = None
 
-    if img_path.exists():
-        register_payload = {
-            "registerUploadRequest": {
-                "recipes": ["urn:li:digitalmediaRecipe:feedshare-image"],
-                "owner": AUTHOR_URN,
-                "serviceRelationships": [{"relationshipType": "OWNER", "identifier": "urn:li:userGeneratedContent"}]
-            }
+def _check_env():
+    missing = []
+
+    if not TOKEN:
+        missing.append("LINKEDIN_ACCESS_TOKEN")
+
+    if not AUTHOR_URN:
+        missing.append("LINKEDIN_AUTHOR_URN")
+
+    if missing:
+        raise RuntimeError(
+            "Missing LinkedIn configuration: "
+            + ", ".join(missing)
+        )
+
+    if not AUTHOR_URN.startswith("urn:li:person:"):
+        raise RuntimeError(
+            "LINKEDIN_AUTHOR_URN must look like "
+            "'urn:li:person:123456789'"
+        )
+
+
+def get_latest_draft() -> Path:
+    if not DRAFTS.exists():
+        raise RuntimeError("drafts/ does not exist")
+
+    dirs = sorted(
+        d for d in DRAFTS.iterdir()
+        if d.is_dir()
+        and d.name != "posted"
+        and (d / "post.txt").exists()
+    )
+
+    if not dirs:
+        raise RuntimeError("No publishable draft found")
+
+    return dirs[-1]
+
+
+def upload_image(image_path: Path) -> str:
+    payload = {
+        "registerUploadRequest": {
+            "recipes": [
+                "urn:li:digitalmediaRecipe:feedshare-image"
+            ],
+            "owner": AUTHOR_URN,
+            "serviceRelationships": [
+                {
+                    "relationshipType": "OWNER",
+                    "identifier":
+                        "urn:li:userGeneratedContent",
+                }
+            ],
         }
-        upload_res = requests.post("https://api.linkedin.com/v2/assets?action=registerUpload", headers=headers, json=register_payload).json()
-        upload_url = upload_res['value']['uploadMechanism']['com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest']['uploadUrl']
-        asset_urn = upload_res['value']['asset']
-        
-        with open(img_path, 'rb') as f:
-            requests.put(upload_url, headers={"Authorization": f"Bearer {LI_TOKEN}"}, data=f)
+    }
 
-    post_payload = {
+    response = requests.post(
+        "https://api.linkedin.com/v2/assets?action=registerUpload",
+        headers=RESTLI_HEADERS,
+        json=payload,
+        timeout=30,
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
+
+    mechanism = data["value"]["uploadMechanism"][
+        "com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest"
+    ]
+
+    upload_url = mechanism["uploadUrl"]
+    asset_urn = data["value"]["asset"]
+
+    with image_path.open("rb") as fh:
+        upload_response = requests.put(
+            upload_url,
+            headers={
+                "Authorization": f"Bearer {TOKEN}",
+            },
+            data=fh,
+            timeout=60,
+        )
+
+    upload_response.raise_for_status()
+
+    print("✓ LinkedIn image uploaded")
+    print("  Asset:", asset_urn)
+
+    return asset_urn
+
+
+def publish_post(
+    text: str,
+    asset_urn: str | None = None,
+) -> str:
+
+    share_content = {
+        "shareCommentary": {
+            "text": text,
+        },
+        "shareMediaCategory":
+            "IMAGE" if asset_urn else "NONE",
+    }
+
+    if asset_urn:
+        share_content["media"] = [
+            {
+                "status": "READY",
+                "media": asset_urn,
+            }
+        ]
+
+    payload = {
         "author": AUTHOR_URN,
         "lifecycleState": "PUBLISHED",
         "specificContent": {
-            "com.linkedin.ugc.ShareContent": {
-                "shareCommentary": {"text": post_text},
-                "shareMediaCategory": "IMAGE" if asset_urn else "NONE"
-            }
+            "com.linkedin.ugc.ShareContent":
+                share_content
         },
-        "visibility": {"com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"}
+        "visibility": {
+            "com.linkedin.ugc.MemberNetworkVisibility":
+                "PUBLIC"
+        },
     }
-    
-    if asset_urn:
-        post_payload["specificContent"]["com.linkedin.ugc.ShareContent"]["media"] = [{"status": "READY", "media": asset_urn}]
-    
-    res = requests.post("https://api.linkedin.com/v2/ugcPosts", headers=headers, json=post_payload)
-    res.raise_for_status()
+
+    response = requests.post(
+        "https://api.linkedin.com/v2/ugcPosts",
+        headers=RESTLI_HEADERS,
+        json=payload,
+        timeout=30,
+    )
+
+    response.raise_for_status()
+
+    post_id = response.headers.get(
+        "X-RestLi-Id",
+        "unknown",
+    )
+
+    print("✓ LinkedIn post published")
+    print("  Post ID:", post_id)
+
+    return post_id
+
+
+def main():
+    _check_env()
+
+    draft = get_latest_draft()
+
+    print("Publishing:", draft.name)
+
+    post_text = (
+        draft / "post.txt"
+    ).read_text().strip()
+
+    if not post_text:
+        raise RuntimeError("post.txt is empty")
+
+    image = draft / "card.png"
+
+    asset_urn = None
+
+    if image.exists():
+        asset_urn = upload_image(image)
+
+    publish_post(
+        text=post_text,
+        asset_urn=asset_urn,
+    )
+
 
 if __name__ == "__main__":
-    latest = get_latest_draft()
-    if latest:
-        post_to_linkedin(latest)
-        # Optional: move folder to 'posted' directory here
+    main()

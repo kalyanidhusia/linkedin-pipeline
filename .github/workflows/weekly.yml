@@ -3,28 +3,102 @@ name: Weekly LinkedIn Post
 on:
   schedule:
     - cron: '0 10 * * 1'
-  workflow_dispatch:
+
+concurrency:
+  group: linkedin-weekly-post
+  cancel-in-progress: false
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
 
       - name: Install Dependencies
-        run: pip install google-genai>=1.0.0 requests Pillow feedparser
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
 
-      - name: Generate and Post
+      - name: Preflight Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import os
+          from google import genai
+
+          key = os.getenv("GEMINI_API_KEY")
+          if not key:
+              raise SystemExit("GEMINI_API_KEY is missing")
+
+          client = genai.Client(api_key=key)
+
+          usable = []
+
+          for m in client.models.list():
+              if "generateContent" in (m.supported_actions or []):
+                  usable.append(m.name)
+
+          if not usable:
+              raise SystemExit(
+                  "Gemini key is valid but no generateContent models "
+                  "are available"
+              )
+
+          print("Gemini authentication OK")
+          print("Available generateContent models:")
+          for model in usable:
+              print(" ", model)
+          PY
+
+      - name: Generate LinkedIn Post
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python scripts/generate_post.py
+
+      - name: Validate Draft
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          drafts = Path("drafts")
+          candidates = sorted(
+              d for d in drafts.iterdir()
+              if d.is_dir() and d.name != "posted"
+          )
+
+          if not candidates:
+              raise SystemExit("No draft directory produced")
+
+          latest = candidates[-1]
+
+          post = latest / "post.txt"
+
+          if not post.exists():
+              raise SystemExit(
+                  f"{latest} does not contain post.txt"
+              )
+
+          if not post.read_text().strip():
+              raise SystemExit("Generated post.txt is empty")
+
+          print("Draft validation OK:", latest)
+          print("Image:", (latest / "card.png").exists())
+          PY
+
+      - name: Publish to LinkedIn
+        env:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
         run: |
-          python scripts/generate_post.py
           python scripts/publish.py
