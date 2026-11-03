@@ -15,7 +15,7 @@ def generate(prompt: str, system: str = "", max_tokens: int = 4000, json_mode: b
         config.response_mime_type = "application/json"
         
     response = client.models.generate_content(
-        model='gemini-2.5-pro',
+        model='gemini-3.1-pro-preview',
         contents=prompt,
         config=config
     )
