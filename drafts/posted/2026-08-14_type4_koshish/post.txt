@@ -1,0 +1,9 @@
+The first time I opened a SomaScan output file, I felt like an alien trying to read a human language. It was a dense table of numbers and IDs that made no immediate sense. My dumb machine was waiting, but I was stuck!
+
+I'm used to proteomics data, but SomaScan has its own unique structure. Raw data in relative fluorescence units (RFU), and the protein identifiers aren't your typical UniProt IDs. My first instinct was to jump into analysis, but I quickly hit a wall.
+
+It turns out, the key was simple: documentation! SomaLogic provides excellent resources that explain the data structure, analyte IDs, and how to convert them into usable protein names. A quick read saved me hours of head-scratching.
+
+Notes from my desk this week 👇 What's your "alien language" data story?
+
+#somascan #proteomics #bioinformatics #dataintegration

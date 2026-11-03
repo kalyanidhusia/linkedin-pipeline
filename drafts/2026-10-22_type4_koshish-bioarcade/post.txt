@@ -1,0 +1,13 @@
+I spent the last year building six browser games for Arkansas undergrads to learn transcription, translation, protein folding, phagocytosis, pharmacokinetics, and antibiotic resistance.
+
+Not because games are fun (though they are), but because I needed a format NIH reviewers would accept. That constraint — 'one concept per game, defensible to a grant officer' — forced me to strip out every decoration, every detour, every tempting side-explanation.
+
+What survived: a three-step loop (Learn → Play → Check) that takes under 6 minutes. The game mechanic is the concept. Polymerase Runner doesn't teach transcription through a quiz on top of Flappy Bird; the jump timing *is* base-pairing at the transcription zone.
+
+Every game states its simplifications in-game. 'The ribosome does not actually look like a snake.' That line isn't humility — it's what makes the work defensible.
+
+Open question I'm sitting with: can I add zero-PII telemetry so the data students generate becomes the dataset they analyze? A loop worth building if it holds up.
+
+Notes from my desk this week 👇
+
+#bioinformatics #computationalbiology #education #scicomm

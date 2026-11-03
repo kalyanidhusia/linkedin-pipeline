@@ -1,0 +1,7 @@
+I remember when I first started digging into proteomics data, my histograms looked like bumpy landscapes, not the smooth bell curves I expected. Raw intensity values from DIA or DDA runs often have a really skewed distribution, with many low values and a few super high ones.
+
+If we jump straight into differential analysis with that raw, lumpy data, our statistical tests might get confused. That's why I always log2-transform proteomics intensities *before* running any statistical comparisons. It helps normalize the data, making it much more friendly for methods like t-tests or ANOVA. It's a small step, but it makes a huge difference in getting reliable insights from our 'dumb machines'.
+
+What's your essential first step when prepping proteomics data? I'm still figuring out the best practices sometimes and love to hear what works for you. Let's grow together!
+
+#proteomics #computationalbiology #datanalysis #bioinformatics

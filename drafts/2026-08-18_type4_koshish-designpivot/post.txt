@@ -1,0 +1,11 @@
+Ever started building something, only to realize the best path wasn't the first one you imagined? 
+
+That's been my journey with `pxEnrich`. We initially thought about text-based enrichment and leveraging LLMs to parse context. Sounded smart, right?
+
+But as we dug deeper, we saw the real power in grounding our insights in source evidence from metadata. The pivot was clear: move from just parsing text to building AI assertions qualified by biological rules, then validating at the proteome level. It’s a much more robust approach.
+
+The human element, with expert adjudication, is still the gold standard to ensure our evidence-qualified metadata truly makes sense. It's a reminder that even 'smart machines' need our biological intuition to get it right.
+
+Notes from my desk this week 👇
+
+#computationalbiology #proteomics #machinelearning #datascience

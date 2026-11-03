@@ -1,0 +1,9 @@
+I was playing around with PXD000499 data this week, which focuses on ERβ/ESR2, and decided to ask an off-the-shelf LLM what it thought.
+
+The LLM confidently inferred 'clinical ER-positive disease' with a confidence of 1.0. Sounds great, right? But here's the catch: ERβ (ESR2) is not the same as ERα (ESR1). In clinical settings, 'ER-positive' almost always refers to ERα expression. They play different biological roles, especially in cancer.
+
+This was a good reminder that while LLMs are powerful tools, they don't inherently understand biological nuance. They can connect dots based on training data, but they lack the critical, contextual expertise a human brings. We still need to guide them.
+
+Notes from my desk this week 👇
+
+#computationalbiology #machinelearning #cancerresearch #bioinformatics

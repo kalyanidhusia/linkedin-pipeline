@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-08-17T10:25:19",
+  "hashtags": [
+    "#proteomics",
+    "#bioinformatics",
+    "#metadata",
+    "#datascience"
+  ],
+  "source_links": [],
+  "topic": "Metadata gap in public proteomics",
+  "title": "Hidden treasure in proteomics data",
+  "sections": [
+    {
+      "label": "1. The Data",
+      "bullets": [
+        "Scanned 962 human breast cancer",
+        "PRIDE proteomics datasets"
+      ]
+    },
+    {
+      "label": "2. The Annotation",
+      "bullets": [
+        "Molecular subtype recoverable",
+        "From free text in 32.4%"
+      ]
+    },
+    {
+      "label": "3. The Machine View",
+      "bullets": [
+        "Structurally exposed: 0.3%",
+        "Machines can't reliably see it"
+      ]
+    },
+    {
+      "label": "4. My Takeaway",
+      "bullets": [
+        "Metadata exists but is hidden",
+        "Limits data reusability"
+      ]
+    }
+  ],
+  "closing_note": "We need better ways for machines to 'read' crucial biological context.",
+  "clipart_hints": []
+}

@@ -1,0 +1,11 @@
+I remember feeling like a data science wizard when my first ML model hit 99% accuracy on the test set. It was for a new cancer biomarker, and I was so proud of those numbers. My brain was already planning the next big paper!
+
+Then I showed it to a senior computational biologist. She asked, very gently, "Kalyani, did you normalize your data *before* you split it into train and test sets?" My heart sank a little. Yes, I had.
+
+That's data leakage. By normalizing the whole dataset, I was letting information from the test set 'leak' into the training process. My model wasn't learning to generalize; it was just getting a peek at the answers. The 99% was meaningless. It felt like getting caught peeking at the answers in an exam!
+
+It's a common mistake, especially when you're starting out. Always normalize (or scale, or transform) *only* on your training data, then apply those learned parameters to your test set. Live and learn, right? Meanwhile, making dumb machines solve biological problems!
+
+Notes from my desk this week 👇
+
+#machinelearning #computationalbiology #bioinformatics #dataleakage

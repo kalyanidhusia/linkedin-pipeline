@@ -1,0 +1,13 @@
+I spent two weeks convinced our LLM-first design for pxEnrich was elegant.
+
+It wasn't. It was fast and clever and wrong about 18% of the time.
+
+We flipped the pipeline: pull source evidence first, let the model make an assertion, validate against biological rules and the actual proteome, then send borderline cases to expert review. Only then do we commit metadata.
+
+It's slower. The code is messier. But the error rate dropped to under 3%, and every tag now carries a chain of evidence.
+
+I used to think 'human-in-the-loop' meant humans fixing AI mistakes. Now I think it means designing systems where humans adjudicate uncertainty, not errors.
+
+Notes from the design board this week 👇
+
+#proteomics #bioinformatics #machinelearning #computationalbiology

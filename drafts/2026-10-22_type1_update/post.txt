@@ -1,0 +1,11 @@
+I spent way too much time last month waiting for an RNA structure prediction job to finish. Not ideal when you're trying to test a hypothesis before the next lab meeting.
+
+The NuFold RNA Structure Database just dropped on bioRxiv, and it's basically "here are the structures, already computed" for a massive number of RNA sequences. Full-atom tertiary structures, precomputed, with confidence scores included. No more spinning up jobs and checking back in 6 hours.
+
+What I like: they're removing the computational barrier for people who need structures *now* but don't have a cluster sitting around. The confidence metrics matter too — knowing when to trust a prediction vs. when to be skeptical saves a lot of downstream pain.
+
+Still need to dig into how they handle edge cases, but this feels like the kind of resource that quietly becomes part of everyone's workflow.
+
+If you work with RNA and haven't bookmarked https://nufold.kiharalab.org/ yet, might be worth a look.
+
+#structuralbiology #rna #bioinformatics #computationalbiology

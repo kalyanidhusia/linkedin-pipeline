@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-10-22T21:22:11",
+  "hashtags": [
+    "#bioinformatics",
+    "#computationalbiology",
+    "#education",
+    "#scicomm"
+  ],
+  "source_links": [],
+  "topic": "Building defensible educational games for NIH reviewers",
+  "title": "Six games, one defensible loop",
+  "sections": [
+    {
+      "label": "1. The Constraint",
+      "bullets": [
+        "One concept per game, under 6 min",
+        "Mechanic IS the biology, not decor"
+      ]
+    },
+    {
+      "label": "2. The Loop",
+      "bullets": [
+        "Learn (flashcard) \u2192 Play \u2192 Check (quiz)",
+        "Loop is the IP unit, not the games"
+      ]
+    },
+    {
+      "label": "3. Named Simplifications",
+      "bullets": [
+        "In-game text: 'ribosome \u2260 snake'",
+        "Makes it defensible to reviewers"
+      ]
+    },
+    {
+      "label": "4. The Question",
+      "bullets": [
+        "Zero-PII telemetry for NIH metrics",
+        "Students analyze their own play data"
+      ]
+    }
+  ],
+  "closing_note": "The constraint taught me more about clarity than any paper I've written.",
+  "clipart_hints": []
+}

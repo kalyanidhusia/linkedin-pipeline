@@ -1,0 +1,11 @@
+Ever feel like you're searching for a needle in a haystack, but the data is just... hiding? I've been thinking about this a lot lately.
+
+We recently scanned nearly a thousand human breast cancer datasets from PRIDE. The goal: find molecular subtype information. What we found was a classic computational biology puzzle.
+
+Over 30% of these datasets *did* contain subtype info, but it was buried in free-text fields. Only 0.3% had it in a structured, machine-readable format. Imagine the manual effort to extract that!
+
+It's a reminder that good data isn't just about collecting it, but also about making it accessible to our 'dumb machines'. Otherwise, we're building tools but feeding them half-blind.
+
+Notes from my desk this week 👇
+
+#ComputationalBiology #Proteomics #Metadata #CancerResearch

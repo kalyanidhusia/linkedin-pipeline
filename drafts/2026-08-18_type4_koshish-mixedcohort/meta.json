@@ -1,0 +1,38 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-08-18T14:26:58",
+  "hashtags": [
+    "#proteomics",
+    "#bioinformatics",
+    "#cancerresearch",
+    "#datavisualization"
+  ],
+  "source_links": [],
+  "topic": "Public Proteomics Mixed Cohorts",
+  "title": "Public data mixed cohorts",
+  "sections": [
+    {
+      "label": "1. My Search",
+      "bullets": [
+        "Hunting for public proteomics.",
+        "Found PXD000029, PXD000246."
+      ]
+    },
+    {
+      "label": "2. The Catch",
+      "bullets": [
+        "PXD000029: multiple breast types.",
+        "PXD000246: pooled cell lines."
+      ]
+    },
+    {
+      "label": "3. The Lesson",
+      "bullets": [
+        "Dataset annotation is key!",
+        "Mixed cohorts need careful handling."
+      ]
+    }
+  ],
+  "closing_note": "Double-check your public data annotations before diving deep.",
+  "clipart_hints": []
+}

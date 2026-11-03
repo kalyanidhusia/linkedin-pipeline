@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-08-18T14:29:47",
+  "hashtags": [
+    "#computationalbiology",
+    "#proteomics",
+    "#machinelearning",
+    "#datascience"
+  ],
+  "source_links": [],
+  "topic": "pxEnrich: A Design Evolution Story",
+  "title": "pxEnrich: From text to evidence",
+  "sections": [
+    {
+      "label": "1. First Thought",
+      "bullets": [
+        "Started with text enrichment",
+        "LLM for context parsing"
+      ]
+    },
+    {
+      "label": "2. Key Realization",
+      "bullets": [
+        "Metadata as source evidence",
+        "Needed AI assertions"
+      ]
+    },
+    {
+      "label": "3. New Approach",
+      "bullets": [
+        "Biological rules applied",
+        "Proteome-level validation"
+      ]
+    },
+    {
+      "label": "4. Human Check",
+      "bullets": [
+        "Expert adjudication crucial",
+        "Evidence-qualified metadata"
+      ]
+    }
+  ],
+  "closing_note": "Building robust tools means embracing constant iteration and expert review.",
+  "clipart_hints": []
+}

@@ -1,0 +1,15 @@
+{
+  "type": "type3_visual",
+  "generated_at": "2026-08-18T14:36:38",
+  "hashtags": [
+    "#computationalbiology",
+    "#machinelearning",
+    "#bioinformatics",
+    "#datavisualization"
+  ],
+  "source_links": [],
+  "topic": "PCA preprocessing: Standardization is key",
+  "dont": "Run PCA without standardizing first",
+  "do": "`StandardScaler().fit_transform(X)` first",
+  "caption_truncated": false
+}

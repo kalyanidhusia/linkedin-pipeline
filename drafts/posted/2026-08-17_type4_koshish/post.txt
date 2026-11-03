@@ -1,0 +1,9 @@
+I was digging through some public proteomics data recently, trying to find specific molecular subtypes for a project. It's always a bit of an adventure! 
+
+What I noticed in a preliminary scan of 962 human breast cancer PRIDE datasets was interesting — the molecular subtype information was often *there*, tucked away in the free text descriptions (about 32.4% of the time!). But here's the kicker: it was structurally exposed for machines to reliably parse in only 0.3% of those datasets. 
+
+It's like finding a treasure map, but the 'X' is drawn in invisible ink for your robot assistant! This metadata gap means that even when the crucial biological context exists, our "dumb machines" can't easily connect the dots, making it so much harder to reuse and integrate these valuable datasets at scale. I'm still figuring out how we bridge this gap. 
+
+Notes from my desk this week 👇
+
+#proteomics #bioinformatics #metadata #datascience

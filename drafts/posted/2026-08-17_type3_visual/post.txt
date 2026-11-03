@@ -1,0 +1,7 @@
+I remember the early days of running PCA, proudly hitting 'enter' and staring at a scattered mess. My plots looked like abstract art, not biological insights. It took a kind mentor (and a lot of head-scratching) to point out a simple, yet crucial, step I was missing.
+
+When we're trying to reduce data dimensions with PCA, feature scale really matters. If one variable, like gene expression, has values from 1 to 100,000 and another, like patient age, goes from 1 to 100, the high-range variable will completely dominate. It's like letting the loudest voice in a room decide everything! So, before PCA, I always standardize my data using `StandardScaler` in scikit-learn. This ensures every feature contributes equally, giving us a much clearer picture of the underlying variance.
+
+This small change makes a world of difference in interpreting those plots. I'm still figuring out the best ways to visualize complex data, but this one has been really impactful for me. What are your go-to preprocessing steps for PCA? Let's grow together!
+
+#computationalbiology #machinelearning #bioinformatics #datavisualization

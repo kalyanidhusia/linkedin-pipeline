@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-08-18T14:03:43",
+  "hashtags": [
+    "#ComputationalBiology",
+    "#Proteomics",
+    "#Metadata",
+    "#CancerResearch"
+  ],
+  "source_links": [],
+  "topic": "Metadata gap in cancer proteomics datasets",
+  "title": "Metadata Hides in Plain Sight",
+  "sections": [
+    {
+      "label": "1. The Gap",
+      "bullets": [
+        "Metadata often exists",
+        "But machines can't read it"
+      ]
+    },
+    {
+      "label": "2. Our Scan",
+      "bullets": [
+        "962 breast cancer datasets",
+        "From PRIDE database"
+      ]
+    },
+    {
+      "label": "3. The Reveal",
+      "bullets": [
+        "32.4% had subtype in text",
+        "Only 0.3% had it structured"
+      ]
+    },
+    {
+      "label": "4. The Lesson",
+      "bullets": [
+        "Hard for automated analysis",
+        "Wasted effort for researchers"
+      ]
+    }
+  ],
+  "closing_note": "Let's make our valuable metadata machine-readable from the start!",
+  "clipart_hints": []
+}

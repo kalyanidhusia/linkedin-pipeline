@@ -1,0 +1,11 @@
+I ran the same structured-output prompt across four LLM providers last week.
+
+Same five challenge datasets. Same JSON schema. Same extraction rules. I expected some variance, but I didn't expect the delta to be this wide.
+
+It wasn't a model leaderboard — I wasn't comparing 'which is best'. Inference configuration and token budget were major factors. One model with a tight token limit struggled on nested structures. Another with generous context nailed edge cases I hadn't even considered.
+
+The lesson: your mileage will absolutely vary. A benchmark won't tell you how a model handles YOUR proteomics metadata or YOUR sample annotations.
+
+Notes from my desk this week 👇
+
+#llm #bioinformatics #machinelearning #computationalbiology
