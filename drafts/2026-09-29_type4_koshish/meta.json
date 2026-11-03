@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-09-29T22:56:59",
+  "hashtags": [
+    "#computationalbiology",
+    "#machinelearning",
+    "#bioinformatics",
+    "#datalakeage"
+  ],
+  "source_links": [],
+  "topic": "Data Leakage in ML Pipelines",
+  "title": "My Data Leakage Story",
+  "sections": [
+    {
+      "label": "1. The Goal",
+      "bullets": [
+        "Prep data for ML",
+        "Scale features for models"
+      ]
+    },
+    {
+      "label": "2. The Mistake",
+      "bullets": [
+        "Applied StandardScaler",
+        "Then split into train/test"
+      ]
+    },
+    {
+      "label": "3. The Catch",
+      "bullets": [
+        "Validation metrics soared",
+        "Model failed on new data"
+      ]
+    },
+    {
+      "label": "4. The Lesson",
+      "bullets": [
+        "Fit scaler on train set",
+        "Transform train & test"
+      ]
+    }
+  ],
+  "closing_note": "This small error can derail months of work, so check your pipeline!",
+  "clipart_hints": []
+}

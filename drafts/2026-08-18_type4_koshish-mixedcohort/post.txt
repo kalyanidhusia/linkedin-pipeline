@@ -1,0 +1,9 @@
+Ever feel like you've found the perfect dataset, only to realize it's a bit more... complicated than it seemed?
+
+This week, I was digging into public proteomics data for some breast cancer projects. I found PXD000029 and PXD000246, thinking I had clear-cut subtypes. Turns out, PXD000029 actually contains multiple breast cancer subtypes, and PXD000246 is a mix of cell lines based on ER/HER2 status.
+
+It's a good reminder that a dataset's top-level description might not capture all the nuances. Always worth a deep dive into the experimental design and metadata. Otherwise, your 'dumb machines' might solve the *wrong* biological problem!
+
+Notes from my desk this week 👇
+
+#proteomics #bioinformatics #cancerresearch #datavisualization

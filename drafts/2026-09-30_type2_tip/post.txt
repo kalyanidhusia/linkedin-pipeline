@@ -1,0 +1,9 @@
+I remember diving into my first big DIA proteomics dataset. I was so excited to find those key proteins distinguishing my sample groups, ready to feed the data into my differential analysis pipeline.
+
+My mistake? I jumped straight to the t-tests after basic normalization. I figured, "data's clean, let's go!" I ended up with a list of "significant" proteins that felt... too good to be true. My volcano plot looked like a lopsided mountain range, heavily skewed towards high fold changes for a few outliers.
+
+It hit me when I plotted the raw intensity distributions. They were wildly skewed, with a huge dynamic range. A quick chat with a more experienced colleague confirmed my suspicion: proteomics intensities often have multiplicative noise and non-normal distributions, which linear models (like those behind t-tests) really don't like.
+
+Now, I almost always log2-transform my proteomics intensities *before* differential analysis. It stabilizes the variance, makes the data more Gaussian-like, and ensures my statistical tests are actually robust. Saves me from chasing statistical ghosts and helps my dumb machines solve biological problems more accurately.
+
+#proteomics #bioinformatics #datacleaning #compbio

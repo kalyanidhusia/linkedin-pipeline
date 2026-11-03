@@ -1,0 +1,48 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-08-18T14:08:30",
+  "hashtags": [
+    "#computationalbiology",
+    "#machinelearning",
+    "#proteomics",
+    "#benchmarking"
+  ],
+  "source_links": [],
+  "topic": "First Benchmark: Regex vs. LLM",
+  "title": "Benchmarking Text Extraction",
+  "sections": [
+    {
+      "label": "1. The Task",
+      "bullets": [
+        "Extract key info from 18 datasets.",
+        "Proof of concept for a pipeline."
+      ]
+    },
+    {
+      "label": "2. Regex Baseline",
+      "bullets": [
+        "Precision: 0.78",
+        "Recall: 0.70",
+        "Correct abstention: 0.88"
+      ]
+    },
+    {
+      "label": "3. LLM Initial",
+      "bullets": [
+        "Precision: 0.71",
+        "Recall: 0.50",
+        "Correct abstention: 0.75"
+      ]
+    },
+    {
+      "label": "4. My Takeaway",
+      "bullets": [
+        "Regex is a strong first step.",
+        "LLM needs more fine-tuning.",
+        "Not universal model performance."
+      ]
+    }
+  ],
+  "closing_note": "Early results hint at potential, not a final answer.",
+  "clipart_hints": []
+}

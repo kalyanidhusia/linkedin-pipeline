@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-08-14T15:40:59",
+  "hashtags": [
+    "#somascan",
+    "#proteomics",
+    "#bioinformatics",
+    "#dataintegration"
+  ],
+  "source_links": [],
+  "topic": "Understanding SomaScan Data",
+  "title": "My First SomaScan File",
+  "sections": [
+    {
+      "label": "1. The File Arrives",
+      "bullets": [
+        "Got my first SomaScan data.",
+        "Thousands of analytes."
+      ]
+    },
+    {
+      "label": "2. Initial Confusion",
+      "bullets": [
+        "Raw RFU values, no UniProt.",
+        "Felt like alien script!"
+      ]
+    },
+    {
+      "label": "3. The Rosetta Stone",
+      "bullets": [
+        "Found the analyte map key.",
+        "SomaLogic docs were gold."
+      ]
+    },
+    {
+      "label": "4. Lesson Learned",
+      "bullets": [
+        "Read the README first, always.",
+        "Context unlocks the data."
+      ]
+    }
+  ],
+  "closing_note": "New data types need their own Rosetta Stone.",
+  "clipart_hints": []
+}

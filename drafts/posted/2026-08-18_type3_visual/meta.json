@@ -1,0 +1,15 @@
+{
+  "type": "type3_visual",
+  "generated_at": "2026-08-18T14:35:03",
+  "hashtags": [
+    "#proteomics",
+    "#computationalbiology",
+    "#datanalysis",
+    "#bioinformatics"
+  ],
+  "source_links": [],
+  "topic": "Proteomics data prep",
+  "dont": "Skip log-transforming proteomics intensities",
+  "do": "Log2-transform before differential analysis",
+  "caption_truncated": false
+}

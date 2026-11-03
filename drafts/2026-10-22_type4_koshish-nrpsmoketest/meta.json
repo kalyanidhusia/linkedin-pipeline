@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-10-22T21:23:44",
+  "hashtags": [
+    "#llm",
+    "#bioinformatics",
+    "#machinelearning",
+    "#computationalbiology"
+  ],
+  "source_links": [],
+  "topic": "Structured output variance across LLM providers",
+  "title": "Same prompt, different JSON",
+  "sections": [
+    {
+      "label": "1. The Setup",
+      "bullets": [
+        "5 challenge datasets, 1 schema",
+        "GPT, Qwen3, Gemma, Kimi \u2014 same rules"
+      ]
+    },
+    {
+      "label": "2. What Varied",
+      "bullets": [
+        "Completion quality swung widely",
+        "Token budget mattered more than model"
+      ]
+    },
+    {
+      "label": "3. The Catch",
+      "bullets": [
+        "Inference config > model choice",
+        "No 'best' model \u2014 context is king"
+      ]
+    },
+    {
+      "label": "4. My Takeaway",
+      "bullets": [
+        "Test YOUR data, not benchmarks",
+        "Budget tokens like you budget RAM"
+      ]
+    }
+  ],
+  "closing_note": "Same prompt doesn't mean same output \u2014 tune the knobs that matter.",
+  "clipart_hints": []
+}

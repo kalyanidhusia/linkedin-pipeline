@@ -1,0 +1,26 @@
+{
+  "type": "type1_update",
+  "generated_at": "2026-10-22T21:22:29",
+  "hashtags": [
+    "#structuralbiology",
+    "#rna",
+    "#bioinformatics",
+    "#computationalbiology"
+  ],
+  "source_links": [
+    "https://www.biorxiv.org/content/10.64898/2026.10.16.759724v1?rss=1",
+    "https://www.biorxiv.org/content/10.64898/2026.10.17.759794v1?rss=1",
+    "https://www.biorxiv.org/content/10.64898/2026.10.21.760837v1?rss=1",
+    "https://www.biorxiv.org/content/10.64898/2026.10.21.760778v1?rss=1",
+    "https://www.biorxiv.org/content/10.64898/2026.10.16.759741v1?rss=1",
+    "https://www.biorxiv.org/content/10.64898/2026.10.16.759689v1?rss=1",
+    "https://www.biorxiv.org/content/10.64898/2026.10.16.759709v1?rss=1",
+    "https://www.biorxiv.org/content/10.64898/2026.10.16.759653v1?rss=1",
+    "https://medium.com/@frank.hu_11452/sentieon-2026q3-update-datasheet-af986e6a845e?source=rss------bioinformatics-5",
+    "https://medium.com/@styczynski/pam-blosum-and-scoring-matrices-from-1-000-human-mitochondrial-genomes-4927e84698ec?source=rss------bioinformatics-5",
+    "https://medium.com/microbial-instincts/did-viruses-devolve-from-ancient-cells-this-minimal-archaeon-may-hold-the-answer-119bcf160ffa?source=rss------bioinformatics-5",
+    "https://medium.com/@samdesmondschulman/a-week-at-embl-ebi-learning-metabolomics-in-hinxton-england-b3de04a5edff?source=rss------bioinformatics-5",
+    "https://medium.com/@kmadhumita5c/cyp2d6-activity-score-tester-reproducing-a-pharmacogenomics-method-with-python-385b1a4c0278?source=rss------bioinformatics-5"
+  ],
+  "topic": "NuFold RNA Structure Database for tertiary structure prediction"
+}

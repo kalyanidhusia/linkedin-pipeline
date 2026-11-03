@@ -1,0 +1,11 @@
+I remember my early days building ML models. The excitement when validation metrics looked amazing was quickly followed by confusion when real-world data broke everything.
+
+It took me a while to realize I was falling for one of the most common pitfalls: data leakage. Specifically, normalizing my entire dataset *before* splitting it into training and testing sets.
+
+This meant my 'test' data wasn't truly unseen by the scaler. Information from the test set was subtly influencing the scaling parameters, giving my model an unfair peek. The model wasn't learning robust patterns; it was just memorizing noise.
+
+Now, I always fit my scaler (like StandardScaler) *only* on the training data and then apply that *same* fitted scaler to both the training and test sets. It's a small change, but it makes a huge difference in building truly generalizable models.
+
+Notes from my desk this week 👇
+
+#computationalbiology #machinelearning #bioinformatics #datalakeage

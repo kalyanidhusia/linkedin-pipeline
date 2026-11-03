@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-08-18T14:21:37",
+  "hashtags": [
+    "#computationalbiology",
+    "#machinelearning",
+    "#cancerresearch",
+    "#bioinformatics"
+  ],
+  "source_links": [],
+  "topic": "LLM vs. ER\u03b2/ESR2 in cancer",
+  "title": "ER\u03b2 is not ER\u03b1",
+  "sections": [
+    {
+      "label": "1. The Study",
+      "bullets": [
+        "PXD000499 on ER\u03b2/ESR2",
+        "Asked an LLM for insights"
+      ]
+    },
+    {
+      "label": "2. LLM's Answer",
+      "bullets": [
+        "Inferred \"ER-positive disease\"",
+        "Reported confidence 1.0"
+      ]
+    },
+    {
+      "label": "3. Biological Nuance",
+      "bullets": [
+        "ER\u03b2 (ESR2) is not ER\u03b1 (ESR1)",
+        "Clinical ER+ means ER\u03b1"
+      ]
+    },
+    {
+      "label": "4. My Takeaway",
+      "bullets": [
+        "LLMs lack biological context",
+        "Human expertise is critical"
+      ]
+    }
+  ],
+  "closing_note": "Even confident LLMs need deep biological context to be useful.",
+  "clipart_hints": []
+}

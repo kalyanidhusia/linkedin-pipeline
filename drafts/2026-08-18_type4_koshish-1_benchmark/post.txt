@@ -1,0 +1,9 @@
+I spent some time this week digging into our first benchmark results for a text extraction task. It's always a bit nerve-wracking to put numbers on an early-stage concept, but that's how we learn, right?
+
+We're trying to pull specific biological information from a batch of 18 diverse datasets. My initial thought was to build a robust regex system, and it performed quite well. But of course, the shiny new LLM approach needed its turn at bat.
+
+The numbers are still very much a proof-of-concept, not a universal truth about model performance. Regex gave us a precision of 0.78 and recall of 0.70, while the LLM started at 0.71 precision and 0.50 recall. The 'correct abstention' (knowing when *not* to guess) was also interesting. It's clear both have their strengths and areas for growth. I'm still figuring out the best way to combine or optimize them. Meanwhile, making dumb machines solve biological problems!
+
+Notes from my desk this week 👇
+
+#computationalbiology #machinelearning #proteomics #benchmarking

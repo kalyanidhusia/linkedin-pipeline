@@ -1,0 +1,17 @@
+I was doing exploratory clustering on some proteomics data last month — nothing fancy, just k-means to see if tumor samples grouped by subtype.
+
+Ran the notebook. Got three clean clusters. Took a screenshot for the lab meeting.
+
+Reran it the next morning to add one more plot.
+
+Completely different clusters.
+
+I spent 20 minutes convinced I'd corrupted the data file. Then I realized: no random seed. K-means initialization is stochastic. My "discovery" was just... random noise with a different starting point.
+
+Now I put `np.random.seed(42)` at the top of every notebook, even the messy 2am ones I think I'll delete tomorrow. 
+
+Because the only thing worse than irreproducible science is irreproducible science that you did to yourself.
+
+Future-you will thank present-you.
+
+#bioinformatics #reproducibility #datascience #python

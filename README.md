@@ -65,3 +65,12 @@ drafts/
 .github/workflows/
   weekly.yml             # Sunday cron, opens PR with draft
 ```
+
+## Reference docs
+
+- [docs/COMMANDS.md](docs/COMMANDS.md) — every CLI command
+- [docs/POST_TYPES.md](docs/POST_TYPES.md) — what each post type is for
+- [docs/PROJECTS.md](docs/PROJECTS.md) — project-grounded posts
+
+
+## ==========================================================

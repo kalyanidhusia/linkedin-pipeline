@@ -1,0 +1,45 @@
+{
+  "type": "type4_koshish",
+  "generated_at": "2026-10-22T20:46:20",
+  "hashtags": [
+    "#proteomics",
+    "#bioinformatics",
+    "#machinelearning",
+    "#computationalbiology"
+  ],
+  "source_links": [],
+  "topic": "How pxEnrich design pivoted from LLM-first to evidence-first",
+  "title": "We rebuilt the pipeline backward",
+  "sections": [
+    {
+      "label": "1. First Try",
+      "bullets": [
+        "Text \u2192 LLM \u2192 metadata tags",
+        "Fast, but hallucinations crept in"
+      ]
+    },
+    {
+      "label": "2. The Pivot",
+      "bullets": [
+        "Source evidence \u2192 AI assertion first",
+        "Then biology rules + proteome check"
+      ]
+    },
+    {
+      "label": "3. Expert Gate",
+      "bullets": [
+        "Human adjudication at the end",
+        "Evidence-qualified metadata only"
+      ]
+    },
+    {
+      "label": "4. The Trade",
+      "bullets": [
+        "Slower, yes. Wrong? Far less.",
+        "Trust beats speed for metadata"
+      ]
+    }
+  ],
+  "closing_note": "Sometimes the best AI architecture puts humans last, not first.",
+  "clipart_hints": []
+}

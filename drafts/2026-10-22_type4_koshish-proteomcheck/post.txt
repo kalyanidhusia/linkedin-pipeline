@@ -1,0 +1,9 @@
+I've been digging through public proteomics datasets lately, and I always wonder: can I trust the metadata?
+
+PXD000260 is annotated as triple-negative breast cancer (TNBC). So I checked the proteome. ERBB2 (HER2) and PGR (progesterone receptor) both sat in low percentiles across samples—proteome-concordant with the TNBC label. Not a clinical diagnosis, but a reassuring sanity check.
+
+This isn't foolproof. But when your proteomics data aligns with the metadata, it's one less thing to second-guess. And when it doesn't? That's when the interesting questions start.
+
+Notes from my desk this week 👇
+
+#proteomics #bioinformatics #cancerresearch #computationalbiology
