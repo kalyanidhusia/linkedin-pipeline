@@ -5,6 +5,8 @@ gemini_key.txt
 *_key.txt
 secrets.*
 
+*.nov*
+
 # Python
 __pycache__/
 *.py[cod]
@@ -24,3 +26,4 @@ drafts/preview_*
 
 # Local development
 scripts/jun26/
+linkedin_auth2.0tocke.txt
